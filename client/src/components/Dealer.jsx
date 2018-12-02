@@ -11,9 +11,11 @@ class Dealer extends React.Component {
   render() {
     const { hand } = this.props;
     return (
-      <div>
+      <div className="dealer">
         <h2>Dealer</h2>
-        <p>{hand.cards.forEach(c => <p>{c}</p>)}</p>
+        <p>
+          {hand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} />)}
+        </p>
       </div>
     );
   }

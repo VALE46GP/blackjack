@@ -90,7 +90,7 @@ class Table extends React.Component {
   render() {
     const { bank, dealersHand, yourHand } = this.state;
     return (
-      <div>
+      <div className="center-page">
         <h1>Blackjack</h1>
         <div>
           <Dealer hand={dealersHand} />

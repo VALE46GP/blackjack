@@ -1,3 +1,25 @@
+.center-page {
+  max-width: 920px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: auto !important;
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
+.background {
+  /* The image used */
+  background-image: url("https://s3-us-west-1.amazonaws.com/blackjack-react/felt_hq.jpg");
+
+  /* Full height */
+  width: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .bottom{
   display:flex;
   flex-direction:row;
@@ -6,4 +28,20 @@
 .bottom div{
   margin-right: 20px;
   margin-left: 20px;
+}
+
+.dealer{
+  margin-bottom: 50px;
+}
+
+.dealer h2{
+  margin-bottom: 10px;
+}
+
+.you{
+  margin-top: 50px;
+}
+
+.you h2{
+  margin-top: 10px;
 }
