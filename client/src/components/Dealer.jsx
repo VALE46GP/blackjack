@@ -9,11 +9,11 @@ class Dealer extends React.Component {
   }
 
   render() {
-    let { hand } = this.props;
+    const { hand } = this.props;
     return (
       <div>
         <h2>Dealer</h2>
-        <p>{hand.cards.forEach(c => c)}</p>
+        <p>{hand.cards.forEach(c => <p>{c}</p>)}</p>
       </div>
     );
   }

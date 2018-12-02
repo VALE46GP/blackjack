@@ -9,8 +9,12 @@ class Controls extends React.Component {
   }
 
   render() {
+    const { deal } = this.props;
     return (
-      <p>Controls</p>
+      <div>
+        <p>Controls</p>
+        <button type="submit" onClick={() => deal()}>Deal</button>
+      </div>
     );
   }
 }

@@ -28,10 +28,10 @@ class Table extends React.Component {
         bet: 0,
       },
     };
+    this.deal = this.deal.bind(this);
   }
 
   componentDidMount() {
-    console.log(cardMethods.generate(4));
     this.setState({
       cards: {
         unused: cardMethods.generate(4),
@@ -42,20 +42,49 @@ class Table extends React.Component {
 
   deal() {
     const { cards, dealersHand, yourHand } = this.state;
+    const { unused } = cards;
+    const used = cards.used.concat(dealersHand.cards, yourHand.cards);
+    const dealerCards = unused.splice(0, 2);
+    const yourCards = unused.splice(0, 2);
     this.setState({
       cards: {
-        unused: cards.unused,
-        used: cards.used.concat(dealersHand, yourHand),
+        unused,
+        used,
       },
       dealersHand: {
-        cards: [],
+        cards: dealerCards,
         total: 0,
       },
       yourHand: {
-        cards: [],
+        cards: yourCards,
         total: 0,
       },
     });
+  }
+
+  hit() {
+    const { cards } = this.state;
+    const yourCards = cards.unused.splice(0, 1);
+    const { unused } = cards;
+    this.setState({
+      cards: {
+        unused,
+        used: cards.used,
+      },
+      yourHand: {
+        cards: yourCards,
+        total: 0,
+      },
+    });
+    // nextTurn
+  }
+
+  stay() {
+    // nextTurn
+  }
+
+  dealerPlays() {
+
   }
 
   render() {
@@ -71,7 +100,7 @@ class Table extends React.Component {
               <Bank bank={bank} />
             </div>
             <div>
-              <Controls />
+              <Controls deal={this.deal} />
             </div>
           </div>
         </div>

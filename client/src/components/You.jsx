@@ -12,7 +12,7 @@ class You extends React.Component {
     let { hand } = this.props;
     return (
       <div>
-        <p>{hand.cards.forEach(c => c)}</p>
+        <p>{hand.cards.forEach(c => <p>{c}</p>)}</p>
         <h2>You</h2>
       </div>
     );
