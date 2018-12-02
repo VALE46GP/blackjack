@@ -2,7 +2,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
-const model = require('../data/index');
 
 const app = express();
 const port = process.env.PORT || 3000;

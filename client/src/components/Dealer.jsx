@@ -1,18 +1,22 @@
 
 import React from 'react';
 
-class Table extends React.Component {
+class Dealer extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
     };
   }
 
-  componentDidMount() {
-  }
-
   render() {
+    let { hand } = this.props;
+    return (
+      <div>
+        <h2>Dealer</h2>
+        <p>{hand.cards.forEach(c => c)}</p>
+      </div>
+    );
   }
 }
 
-export default Table;
+export default Dealer;
