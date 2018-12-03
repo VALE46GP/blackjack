@@ -13,7 +13,7 @@ class You extends React.Component {
     return (
       <div className="you">
         <p>
-          {hand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} />)}
+          {hand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} height="100" />)}
         </p>
         <h2>You</h2>
       </div>
