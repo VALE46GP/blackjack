@@ -24,9 +24,25 @@ class Table extends React.Component {
         total: 0,
       },
       bet: 0,
-      bank: {
-        money: 0,
-        bet: 0,
+      player: {
+        id: 0,
+        gamertag: 'Marty McFly',
+        avatar: '',
+        gamesPlayed: 0,
+        gamesWon: 0,
+        gamesLost: 0,
+        gamesTied: 0,
+        blackjacks: 0,
+        doubleDowns: 0,
+        splits: 0,
+        money: 20,
+        moneyWon: 0,
+        moneyLost: 0,
+        biggestBet: 0,
+        brave: 0,
+        scared: 0,
+        lucky: 0,
+        unlucky: 0,
       },
     };
     this.deal = this.deal.bind(this);
@@ -89,20 +105,25 @@ class Table extends React.Component {
   }
 
   render() {
-    const { bet, player, dealersHand, yourHand } = this.state;
+    const {
+      bet, player, dealersHand, yourHand,
+    } = this.state;
     return (
-      <div className="center-page">
-        <h1>Blackjack</h1>
-        <div>
-          <Dealer hand={dealersHand} />
-          <You hand={yourHand} />
-          <div className="bottom">
-            <div>
-              <Stats bet={bet} player={player} />
-            </div>
-            <div>
-              <Controls deal={this.deal} />
-            </div>
+      <div>
+        <div className="title">
+          <h1>Blackjack</h1>
+        </div>
+        <hr />
+        <div className="main-flex">
+          <div>
+            <Controls deal={this.deal} player={player} />
+          </div>
+          <div className="game-col">
+            <Dealer hand={dealersHand} />
+            <You hand={yourHand} />
+          </div>
+          <div>
+            <Stats bet={bet} player={player} />
           </div>
         </div>
       </div>
