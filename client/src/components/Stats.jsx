@@ -1,8 +1,8 @@
 
 import React from 'react';
 
-class Bank extends React.Component {
-  constructor({ bank }) {
+class Stats extends React.Component {
+  constructor({ bet, player }) {
     super();
     this.state = {
     };
@@ -10,9 +10,9 @@ class Bank extends React.Component {
 
   render() {
     return (
-      <p>Bank</p>
+      <p>Stats</p>
     );
   }
 }
 
-export default Bank;
+export default Stats;

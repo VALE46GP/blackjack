@@ -12,9 +12,7 @@ class You extends React.Component {
     const { hand } = this.props;
     return (
       <div className="you">
-        <p>
-          {hand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} height="100" />)}
-        </p>
+        {hand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} height="100" />)}
         <h2>You</h2>
       </div>
     );

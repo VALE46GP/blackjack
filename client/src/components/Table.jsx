@@ -2,7 +2,7 @@
 import React from 'react';
 import Dealer from './Dealer';
 import You from './You';
-import Bank from './Bank';
+import Stats from './Stats';
 import Controls from './Controls';
 import '../styles/style.css';
 import cardMethods from '../assets/cardMethods';
@@ -23,6 +23,7 @@ class Table extends React.Component {
         cards: [],
         total: 0,
       },
+      bet: 0,
       bank: {
         money: 0,
         bet: 0,
@@ -88,7 +89,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { bank, dealersHand, yourHand } = this.state;
+    const { bet, player, dealersHand, yourHand } = this.state;
     return (
       <div className="center-page">
         <h1>Blackjack</h1>
@@ -97,7 +98,7 @@ class Table extends React.Component {
           <You hand={yourHand} />
           <div className="bottom">
             <div>
-              <Bank bank={bank} />
+              <Stats bet={bet} player={player} />
             </div>
             <div>
               <Controls deal={this.deal} />
