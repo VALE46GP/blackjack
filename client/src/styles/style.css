@@ -4,12 +4,12 @@
   background-image: url("https://s3-us-west-1.amazonaws.com/blackjack-react/felt_hq.jpg");
 
   /* Full height */
-  width: 100%; 
+  height: 100%; 
 
   /* Center and scale the image nicely */
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: repeat;
+  background-size: stretch;
 }
 
 .main-flex {
@@ -28,6 +28,7 @@
 }
 
 .game-col {
+  min-width: 300px;
   margin-left: 100px;
   margin-right: 100px;
 }

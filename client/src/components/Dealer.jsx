@@ -15,7 +15,7 @@ class Dealer extends React.Component {
         <div className="dealer">
           <h2>Dealer</h2>
           <img src="https://s3-us-west-1.amazonaws.com/blackjack-react/card_back_biff_tanner.png" alt="dealer-card" width="65.422" height="100" />
-          <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${hand.cards[1]}.png`} alt={hand.cards[1]} height="100" />
+          <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${hand.cards[1]}.png`} alt={hand.cards[1]} key={hand.cards[1]} height="100" />
         </div>
       );
     }

@@ -7,6 +7,8 @@ import Controls from './Controls';
 import '../styles/style.css';
 import cardMethods from '../assets/cardMethods';
 
+const faker = require('faker');
+
 class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -24,10 +26,23 @@ class Table extends React.Component {
         total: 0,
       },
       bet: 0,
+      stage: 'bet',
+      player: {},
+    };
+    this.deal = this.deal.bind(this);
+    this.hit = this.hit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      cards: {
+        unused: cardMethods.generate(4),
+        used: [],
+      },
       player: {
         id: 0,
         gamertag: 'Marty McFly',
-        avatar: '',
+        avatar: faker.image.avatar(),
         gamesPlayed: 0,
         gamesWon: 0,
         gamesLost: 0,
@@ -44,18 +59,10 @@ class Table extends React.Component {
         lucky: 0,
         unlucky: 0,
       },
-    };
-    this.deal = this.deal.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      cards: {
-        unused: cardMethods.generate(4),
-        used: [],
-      },
     });
   }
+
+  // CONTROLS ////////////////////////////////////////////////////////////////
 
   deal() {
     const { cards, dealersHand, yourHand } = this.state;
@@ -63,6 +70,7 @@ class Table extends React.Component {
     const used = cards.used.concat(dealersHand.cards, yourHand.cards);
     const dealerCards = unused.splice(0, 2);
     const yourCards = unused.splice(0, 2);
+
     this.setState({
       cards: {
         unused,
@@ -76,13 +84,15 @@ class Table extends React.Component {
         cards: yourCards,
         total: 0,
       },
+      stage: 'play',
     });
   }
 
   hit() {
-    const { cards } = this.state;
-    const yourCards = cards.unused.splice(0, 1);
+    const { cards, yourHand } = this.state;
     const { unused } = cards;
+    const yourCards = yourHand.cards.concat(unused.splice(0, 1));
+
     this.setState({
       cards: {
         unused,
@@ -93,20 +103,23 @@ class Table extends React.Component {
         total: 0,
       },
     });
-    // nextTurn
+
+    // checkIfOver
   }
 
   stay() {
-    // nextTurn
+    this.dealerPlays();
   }
 
   dealerPlays() {
 
   }
 
+  // END CONTROLS ////////////////////////////////////////////////////////////
+
   render() {
     const {
-      bet, player, dealersHand, yourHand,
+      bet, player, dealersHand, yourHand, stage,
     } = this.state;
     return (
       <div>
@@ -116,11 +129,13 @@ class Table extends React.Component {
         <hr />
         <div className="main-flex">
           <div>
-            <Controls deal={this.deal} player={player} />
+            <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
           </div>
-          <div className="game-col">
-            <Dealer hand={dealersHand} />
-            <You hand={yourHand} />
+          <div className="main-flex">
+            <div className="game-col">
+              <Dealer hand={dealersHand} />
+              <You hand={yourHand} />
+            </div>
           </div>
           <div>
             <Stats bet={bet} player={player} />

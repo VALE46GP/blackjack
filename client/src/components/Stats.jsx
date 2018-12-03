@@ -2,15 +2,21 @@
 import React from 'react';
 
 class Stats extends React.Component {
-  constructor({ bet, player }) {
+  constructor(props) {
     super();
     this.state = {
     };
   }
 
   render() {
+    const { bet, player } = this.props;
     return (
-      <p>Stats</p>
+      <div>
+        <h2>Stats</h2>
+        <img src={player.avatar} alt="avatar" height="50" />
+        <h3>{player.gamertag}</h3>
+        <h4>{`Bet: ${bet}`}</h4>
+      </div>
     );
   }
 }
