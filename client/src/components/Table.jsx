@@ -64,7 +64,7 @@ class Table extends React.Component {
 
   // CONTROLS ////////////////////////////////////////////////////////////////
 
-  deal() {
+  deal(bet) {
     const { cards, dealersHand, yourHand } = this.state;
     const { unused } = cards;
     const used = cards.used.concat(dealersHand.cards, yourHand.cards);
@@ -84,6 +84,7 @@ class Table extends React.Component {
         cards: yourCards,
         total: 0,
       },
+      bet,
       stage: 'play',
     });
   }

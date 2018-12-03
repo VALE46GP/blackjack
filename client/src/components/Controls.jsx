@@ -5,13 +5,21 @@ class Controls extends React.Component {
   constructor(props) {
     super();
     this.state = {
+      bet: 0,
     };
+  }
+
+  handleBetChange(e) {
+    this.setState({
+      bet: event.target.value,
+    });
   }
 
   render() {
     const {
       deal, hit, stay, player, stage,
     } = this.props;
+    const { bet } = this.state;
     if (stage === 'play') {
       return (
         <div>
@@ -29,9 +37,9 @@ class Controls extends React.Component {
         <div>
           Bet:
           {' '}
-          <input type="number" name="quantity" min="1" max={player.money} />
+          <input type="number" onChange={this.handleBetChange.bind(this)} name="bet" min="1" max={player.money} />
         </div>
-        <button type="submit" onClick={() => deal()}>Deal</button>
+        <button type="submit" onClick={() => deal(bet)}>Deal</button>
       </div>
     );
   }
