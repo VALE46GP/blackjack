@@ -67,7 +67,7 @@ class Table extends React.Component {
   // CONTROLS ////////////////////////////////////////////////////////////////
 
   dealerHit() {
-    const { cards, dealersHand } = this.state;
+    const { cards, dealersHand, yourHand } = this.state;
     let dealersCards = dealersHand.cards;
     let total = cardMethods.countHand(dealersCards);
 
@@ -87,6 +87,22 @@ class Table extends React.Component {
         },
       });
       // CHECK IF OVER 21
+      if (total[1] > 21) {
+        total = [total[0], total[0]];
+      }
+      if (total[1] > 21) {
+        this.setState({
+          stage: 'won',
+        });
+      } else if (total[1] > yourHand.total[1]) {
+        this.setState({
+          stage: 'lost',
+        });
+      } else {
+        this.setState({
+          stage: 'tie',
+        });
+      }
     }
   }
 
@@ -135,7 +151,16 @@ class Table extends React.Component {
     });
 
     if (!total.some(v => v <= 21)) {
-      // INITIATE LOSE SEQUENCE
+      this.setState({
+        stage: 'lost',
+      });
+    } else if (total[1] > 21) {
+      this.setState({
+        yourHand: {
+          yourCards,
+          total: [total[0], total[0]],
+        },
+      });
     }
   }
 
@@ -145,31 +170,10 @@ class Table extends React.Component {
     this.setState({
       stage: 'dealerPlay',
     });
-    setTimeout(function () { dealerHit(); }, 750 * (dealersHand.cards.length - 1));
+    setTimeout(function () { dealerHit(); }, 750);
   }
 
   // END CONTROLS ////////////////////////////////////////////////////////////
-
-
-  // switch (stage) {
-  //   case 'init':
-  //     gameCol = <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/favicon1.ico.png`} alt="place-bet" />;
-  //     break;
-  //   case 'play':
-  //     gameCol = <Dealer hand={dealersHand} stage={stage} /><You hand={yourHand} />;
-  //     break;
-  //   case 'dealerPlay':
-  //     gameCol = <Dealer hand={dealersHand} stage={stage} /><You hand={yourHand} />;
-  //     break;
-  //   case 'won':
-  //     gameCol = <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/favicon1.ico.png`} alt="you-won" />;
-  //     break;
-  //   case 'lost':
-  //     gameCol = <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/favicon1.ico.png`} alt="you-lost" />;
-  //     break;
-  //   default:
-  // }
-
 
   render() {
     const {
@@ -220,7 +224,6 @@ class Table extends React.Component {
         </div>
       </div>
     );
-    // <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/${stage}.png`} alt="place-bet" />
   }
 }
 
