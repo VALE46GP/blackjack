@@ -20,10 +20,10 @@ class Dealer extends React.Component {
           </div>
         );
       }
-      if (stage === 'dealerPlay') {
+      if (['dealerPlay', 'won', 'lost', 'tie'].includes(stage)) {
         return (
           <div className="dealer">
-            <h2 className="center">Dealer</h2>
+            <h2>Dealer</h2>
             {hand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c} height="100" />)}
           </div>
         );

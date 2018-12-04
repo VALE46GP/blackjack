@@ -5,6 +5,14 @@ p {
   font-size: 105%;
 }
 
+button {
+  font-size: 105%;
+}
+
+input {
+  font-size: 105%;
+}
+
 .background {
   /* The image used */
   background-image: url("https://s3-us-west-1.amazonaws.com/blackjack-react/felt_hq.jpg");
@@ -29,10 +37,6 @@ p {
   padding-left: 24px !important;
 }
 
-.center {
-  text-align: center;
-}
-
 .title {
   text-align: center;
 }
@@ -43,14 +47,9 @@ p {
   margin-right: 50px;
 }
 
-.bottom{
-  display: flex;
-  flex-direction: row;
-}
-
-.bottom div{
-  margin-right: 20px;
-  margin-left: 20px;
+.game-col .front {
+  z-index: 100;
+  position: absolute;
 }
 
 .dealer{

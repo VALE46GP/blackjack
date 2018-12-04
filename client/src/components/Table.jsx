@@ -26,7 +26,7 @@ class Table extends React.Component {
         total: [0, 0],
       },
       bet: 0,
-      stage: 'init', // stages: init, play, dealerPlay, lost, won
+      stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
       player: {},
     };
     this.deal = this.deal.bind(this);
@@ -150,6 +150,7 @@ class Table extends React.Component {
       },
     });
 
+    // check if over 21
     if (!total.some(v => v <= 21)) {
       this.setState({
         stage: 'lost',
@@ -170,7 +171,7 @@ class Table extends React.Component {
     this.setState({
       stage: 'dealerPlay',
     });
-    setTimeout(function () { dealerHit(); }, 750);
+    setTimeout(() => { dealerHit(); }, 750);
   }
 
   // END CONTROLS ////////////////////////////////////////////////////////////
@@ -179,7 +180,7 @@ class Table extends React.Component {
     const {
       bet, player, dealersHand, yourHand, stage,
     } = this.state;
-    if (['play', 'dealerPlay'].includes(stage)) {
+    // if (['play', 'dealerPlay'].includes(stage)) {
       return (
         <div>
           <div className="title">
@@ -192,8 +193,13 @@ class Table extends React.Component {
             </div>
             <div className="main-flex">
               <div className="game-col">
-                <Dealer hand={dealersHand} stage={stage} />
-                <You hand={yourHand} />
+                <div className="front">
+                  <Dealer hand={dealersHand} stage={stage} />
+                  <You hand={yourHand} />
+                </div>
+                <span>
+                  <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
+                </span>
               </div>
             </div>
             <div>
@@ -202,28 +208,36 @@ class Table extends React.Component {
           </div>
         </div>
       );
-    }
-    return (
-      <div>
-        <div className="title">
-          <h1>Blackjack</h1>
-        </div>
-        <hr />
-        <div className="main-flex">
-          <div>
-            <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
-          </div>
-          <div className="main-flex">
-            <div className="game-col">
-              <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
-            </div>
-          </div>
-          <div>
-            <Stats bet={bet} player={player} />
-          </div>
-        </div>
-      </div>
-    );
+    // }
+    // return (
+    //   <div>
+    //     <div className="title">
+    //       <h1>Blackjack</h1>
+    //     </div>
+    //     <hr />
+    //     <div className="main-flex">
+    //       <div>
+    //         <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
+    //       </div>
+    //       <div className="main-flex">
+    //         <div className="game-col">
+    //           <div className="front">
+    //             <span>
+    //               <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
+    //             </span>
+    //           </div>
+    //           <div>
+    //             <Dealer hand={dealersHand} stage={stage} />
+    //             <You hand={yourHand} />
+    //           </div>
+    //         </div>
+    //       </div>
+    //       <div>
+    //         <Stats bet={bet} player={player} />
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
   }
 }
 
