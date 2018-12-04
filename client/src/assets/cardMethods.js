@@ -12,7 +12,6 @@ cardMethods.shuffle = (cards) => {
 };
 
 cardMethods.generate = (numOfDecks) => {
-  // const suits = ['♥', '♣', '♠', '♦'];
   const suits = ['H', 'C', 'S', 'D'];
   const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
   const deck = [];
@@ -30,7 +29,6 @@ cardMethods.generate = (numOfDecks) => {
 };
 
 cardMethods.countHand = (cards) => {
-  console.log('countHands invoked');
   const total = [0, 0];
   cards.forEach((c) => {
     const value = c.slice(0, c.length - 1);
@@ -48,6 +46,33 @@ cardMethods.countHand = (cards) => {
     }
   });
   return total;
+};
+
+cardMethods.checkIfOver = (total) => { total.some(v => v <= 21); };
+
+// MOVES ///////////////////////////////////////////////////////////////
+
+cardMethods.dealerHit = (cards, dealersHand) => {
+  let dealersCards = dealersHand.cards;
+  let total = cardMethods.countHand(dealersCards);
+
+  while (!total.some(v => v <= 16)) {
+    const { unused } = cards;
+    dealersCards = dealersCards.concat(unused.splice(0, 1));
+    total = cardMethods.countHand(dealersCards);
+
+    this.setState({
+      cards: {
+        unused,
+        used: cards.used,
+      },
+      dealersHand: {
+        cards: dealersCards,
+        total,
+      },
+    });
+    // CHECK IF OVER 21
+  }
 };
 
 export default cardMethods;

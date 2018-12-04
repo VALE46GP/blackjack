@@ -27,7 +27,7 @@ class Controls extends React.Component {
           <div>
             <button type="submit" onClick={() => hit()}>Hit</button>
           </div>
-          <button type="submit" onClick={() => stay()}>Stay</button>
+          <button type="submit" onClick={() => setTimeout(function() { stay(); }, 500)}>Stay</button>
         </div>
       );
     }

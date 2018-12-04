@@ -26,11 +26,13 @@ class Table extends React.Component {
         total: [0, 0],
       },
       bet: 0,
-      stage: 'bet',
+      stage: 'bet', // stages: bet, play, lose, win
       player: {},
     };
     this.deal = this.deal.bind(this);
     this.hit = this.hit.bind(this);
+    this.dealerHit = this.dealerHit.bind(this);
+    this.stay = this.stay.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +65,30 @@ class Table extends React.Component {
   }
 
   // CONTROLS ////////////////////////////////////////////////////////////////
+
+  dealerHit() {
+    const { cards, dealersHand } = this.state;
+    let dealersCards = dealersHand.cards;
+    let total = cardMethods.countHand(dealersCards);
+
+    while (total.some(v => v <= 16)) {
+      const { unused } = cards;
+      dealersCards = dealersCards.concat(unused.splice(0, 1));
+      total = cardMethods.countHand(dealersCards);
+
+      this.setState({
+        cards: {
+          unused,
+          used: cards.used,
+        },
+        dealersHand: {
+          cards: dealersCards,
+          total,
+        },
+      });
+      // CHECK IF OVER 21
+    }
+  }
 
   deal(bet) {
     const { cards, dealersHand, yourHand } = this.state;
@@ -108,15 +134,18 @@ class Table extends React.Component {
       },
     });
 
-    // checkIfOver
+    if (!total.some(v => v <= 21)) {
+      // INITIATE LOSE SEQUENCE
+    }
   }
 
   stay() {
-    this.dealerPlays();
-  }
-
-  dealerPlays() {
-
+    const { dealerHit } = this;
+    const { dealersHand } = this.state;
+    this.setState({
+      stage: 'dealerPlay',
+    });
+    setTimeout(function () { dealerHit(); }, 750 * (dealersHand.cards.length - 1));
   }
 
   // END CONTROLS ////////////////////////////////////////////////////////////
@@ -138,7 +167,7 @@ class Table extends React.Component {
           </div>
           <div className="main-flex">
             <div className="game-col">
-              <Dealer hand={dealersHand} />
+              <Dealer hand={dealersHand} stage={stage} />
               <You hand={yourHand} />
             </div>
           </div>
