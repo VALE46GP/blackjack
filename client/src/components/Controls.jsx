@@ -23,7 +23,7 @@ class Controls extends React.Component {
     if (stage === 'play') {
       return (
         <div>
-          <h2>Controls</h2>
+          <h1>Controls</h1>
           <div>
             <button type="submit" onClick={() => hit()}>Hit</button>
           </div>

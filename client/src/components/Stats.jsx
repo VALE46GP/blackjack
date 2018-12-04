@@ -12,10 +12,10 @@ class Stats extends React.Component {
     const { bet, player } = this.props;
     return (
       <div>
-        <h2>Stats</h2>
+        <h1>Stats</h1>
         <img src={player.avatar} alt="avatar" height="50" />
-        <h3>{player.gamertag}</h3>
-        <h4>{`Bet: ${bet}`}</h4>
+        <h2 className="small-margins">{player.gamertag}</h2>
+        <h3 className="small-margins">{`Bet: ${bet}`}</h3>
       </div>
     );
   }

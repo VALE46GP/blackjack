@@ -26,7 +26,7 @@ class Table extends React.Component {
         total: [0, 0],
       },
       bet: 0,
-      stage: 'bet', // stages: bet, play, lose, win
+      stage: 'init', // stages: init, play, dealerPlay, lost, won
       player: {},
     };
     this.deal = this.deal.bind(this);
@@ -150,15 +150,59 @@ class Table extends React.Component {
 
   // END CONTROLS ////////////////////////////////////////////////////////////
 
+
+  // switch (stage) {
+  //   case 'init':
+  //     gameCol = <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/favicon1.ico.png`} alt="place-bet" />;
+  //     break;
+  //   case 'play':
+  //     gameCol = <Dealer hand={dealersHand} stage={stage} /><You hand={yourHand} />;
+  //     break;
+  //   case 'dealerPlay':
+  //     gameCol = <Dealer hand={dealersHand} stage={stage} /><You hand={yourHand} />;
+  //     break;
+  //   case 'won':
+  //     gameCol = <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/favicon1.ico.png`} alt="you-won" />;
+  //     break;
+  //   case 'lost':
+  //     gameCol = <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/favicon1.ico.png`} alt="you-lost" />;
+  //     break;
+  //   default:
+  // }
+
+
   render() {
     const {
       bet, player, dealersHand, yourHand, stage,
     } = this.state;
+    if (['play', 'dealerPlay'].includes(stage)) {
+      return (
+        <div>
+          <div className="title">
+            <h1>Blackjack</h1>
+          </div>
+          <hr />
+          <div className="main-flex">
+            <div>
+              <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
+            </div>
+            <div className="main-flex">
+              <div className="game-col">
+                <Dealer hand={dealersHand} stage={stage} />
+                <You hand={yourHand} />
+              </div>
+            </div>
+            <div>
+              <Stats bet={bet} player={player} />
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="title">
           <h1>Blackjack</h1>
-          <p>{yourHand.total.map(t => `${t}  `)}</p>
         </div>
         <hr />
         <div className="main-flex">
@@ -167,8 +211,7 @@ class Table extends React.Component {
           </div>
           <div className="main-flex">
             <div className="game-col">
-              <Dealer hand={dealersHand} stage={stage} />
-              <You hand={yourHand} />
+              <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
             </div>
           </div>
           <div>
@@ -177,6 +220,7 @@ class Table extends React.Component {
         </div>
       </div>
     );
+    // <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/${stage}.png`} alt="place-bet" />
   }
 }
 
