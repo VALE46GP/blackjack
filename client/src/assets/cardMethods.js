@@ -29,4 +29,25 @@ cardMethods.generate = (numOfDecks) => {
   return cardMethods.shuffle(decks);
 };
 
+cardMethods.countHand = (cards) => {
+  console.log('countHands invoked');
+  const total = [0, 0];
+  cards.forEach((c) => {
+    const value = c.slice(0, c.length - 1);
+    if (['J', 'Q', 'K'].includes(value)) {
+      total.forEach((v, i) => { total[i] += 10; });
+    } else if (value === 'A') {
+      total[0] += 1;
+      if (total[1] < 10) {
+        total[1] += 11;
+      } else {
+        total[1] += 1;
+      }
+    } else {
+      total.forEach((v, i) => { total[i] += parseInt(value, 10); });
+    }
+  });
+  return total;
+};
+
 export default cardMethods;

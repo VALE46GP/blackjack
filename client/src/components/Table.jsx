@@ -19,11 +19,11 @@ class Table extends React.Component {
       },
       dealersHand: {
         cards: [],
-        total: 0,
+        total: [0, 0],
       },
       yourHand: {
         cards: [],
-        total: 0,
+        total: [0, 0],
       },
       bet: 0,
       stage: 'bet',
@@ -70,6 +70,8 @@ class Table extends React.Component {
     const used = cards.used.concat(dealersHand.cards, yourHand.cards);
     const dealerCards = unused.splice(0, 2);
     const yourCards = unused.splice(0, 2);
+    const dealerTotal = cardMethods.countHand(dealersHand.cards);
+    const yourTotal = cardMethods.countHand(yourCards);
 
     this.setState({
       cards: {
@@ -78,11 +80,11 @@ class Table extends React.Component {
       },
       dealersHand: {
         cards: dealerCards,
-        total: 0,
+        total: dealerTotal,
       },
       yourHand: {
         cards: yourCards,
-        total: 0,
+        total: yourTotal,
       },
       bet,
       stage: 'play',
@@ -93,6 +95,7 @@ class Table extends React.Component {
     const { cards, yourHand } = this.state;
     const { unused } = cards;
     const yourCards = yourHand.cards.concat(unused.splice(0, 1));
+    const total = cardMethods.countHand(yourCards);
 
     this.setState({
       cards: {
@@ -101,7 +104,7 @@ class Table extends React.Component {
       },
       yourHand: {
         cards: yourCards,
-        total: 0,
+        total,
       },
     });
 
@@ -126,6 +129,7 @@ class Table extends React.Component {
       <div>
         <div className="title">
           <h1>Blackjack</h1>
+          <p>{yourHand.total.map(t => `${t}  `)}</p>
         </div>
         <hr />
         <div className="main-flex">
