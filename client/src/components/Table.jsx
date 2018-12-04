@@ -67,7 +67,9 @@ class Table extends React.Component {
   // CONTROLS ////////////////////////////////////////////////////////////////
 
   dealerHit() {
-    const { cards, dealersHand, yourHand } = this.state;
+    const {
+      cards, dealersHand, yourHand, player, bet,
+    } = this.state;
     let dealersCards = dealersHand.cards;
     let total = cardMethods.countHand(dealersCards);
 
@@ -87,33 +89,49 @@ class Table extends React.Component {
         },
       });
       // CHECK IF OVER 21
+
       if (total[1] > 21) {
         total = [total[0], total[0]];
       }
       if (total[1] > 21) {
+        player.money += (bet * 2);
+        player.gamesWon += 1;
+        player.moneyWon += bet;
         this.setState({
           stage: 'won',
+          player,
         });
       } else if (total[1] > yourHand.total[1]) {
+        player.gamesLost += 1;
+        player.moneyLost += bet;
         this.setState({
           stage: 'lost',
+          player,
         });
       } else {
+        player.money += bet;
+        player.gamesTied += 1;
         this.setState({
           stage: 'tie',
+          player,
         });
       }
     }
   }
 
   deal(bet) {
-    const { cards, dealersHand, yourHand } = this.state;
+    const {
+      cards, dealersHand, yourHand, player,
+    } = this.state;
     const { unused } = cards;
     const used = cards.used.concat(dealersHand.cards, yourHand.cards);
     const dealerCards = unused.splice(0, 2);
     const yourCards = unused.splice(0, 2);
     const dealerTotal = cardMethods.countHand(dealersHand.cards);
     const yourTotal = cardMethods.countHand(yourCards);
+    const betInt = parseInt(bet, 10);
+    player.gamesPlayed += 1;
+    player.money -= betInt;
 
     this.setState({
       cards: {
@@ -128,13 +146,16 @@ class Table extends React.Component {
         cards: yourCards,
         total: yourTotal,
       },
-      bet,
+      bet: betInt,
       stage: 'play',
+      player,
     });
   }
 
   hit() {
-    const { cards, yourHand } = this.state;
+    const {
+      cards, yourHand, player, bet,
+    } = this.state;
     const { unused } = cards;
     const yourCards = yourHand.cards.concat(unused.splice(0, 1));
     const total = cardMethods.countHand(yourCards);
@@ -152,8 +173,11 @@ class Table extends React.Component {
 
     // check if over 21
     if (!total.some(v => v <= 21)) {
+      player.gamesLost += 1;
+      player.moneyLost += bet;
       this.setState({
         stage: 'lost',
+        player,
       });
     } else if (total[1] > 21) {
       this.setState({
@@ -180,64 +204,33 @@ class Table extends React.Component {
     const {
       bet, player, dealersHand, yourHand, stage,
     } = this.state;
-    // if (['play', 'dealerPlay'].includes(stage)) {
-      return (
-        <div>
-          <div className="title">
-            <h1>Blackjack</h1>
+    return (
+      <div>
+        <div className="title">
+          <h1>Blackjack</h1>
+        </div>
+        <hr />
+        <div className="main-flex">
+          <div>
+            <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
           </div>
-          <hr />
           <div className="main-flex">
-            <div>
-              <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
-            </div>
-            <div className="main-flex">
-              <div className="game-col">
-                <div className="front">
-                  <Dealer hand={dealersHand} stage={stage} />
-                  <You hand={yourHand} />
-                </div>
-                <span>
-                  <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
-                </span>
+            <div className="game-col">
+              <div className="front">
+                <Dealer hand={dealersHand} stage={stage} />
+                <You hand={yourHand} />
               </div>
+              <span>
+                <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
+              </span>
             </div>
-            <div>
-              <Stats bet={bet} player={player} />
-            </div>
+          </div>
+          <div>
+            <Stats bet={bet} player={player} />
           </div>
         </div>
-      );
-    // }
-    // return (
-    //   <div>
-    //     <div className="title">
-    //       <h1>Blackjack</h1>
-    //     </div>
-    //     <hr />
-    //     <div className="main-flex">
-    //       <div>
-    //         <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
-    //       </div>
-    //       <div className="main-flex">
-    //         <div className="game-col">
-    //           <div className="front">
-    //             <span>
-    //               <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
-    //             </span>
-    //           </div>
-    //           <div>
-    //             <Dealer hand={dealersHand} stage={stage} />
-    //             <You hand={yourHand} />
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div>
-    //         <Stats bet={bet} player={player} />
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
+      </div>
+    );
   }
 }
 
