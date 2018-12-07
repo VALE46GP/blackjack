@@ -12,8 +12,10 @@ cardMethods.shuffle = (cards) => {
 };
 
 cardMethods.generate = (numOfDecks) => {
-  const suits = ['H', 'C', 'S', 'D'];
-  const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+  // const suits = ['H', 'C', 'S', 'D'];
+  const suits = ['H'];
+  // const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+  const values = [5, 2, 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 10, 10, 10, 10, 10];
   const deck = [];
 
   suits.forEach((suit) => {
@@ -36,7 +38,7 @@ cardMethods.countHand = (cards) => {
       total.forEach((v, i) => { total[i] += 10; });
     } else if (value === 'A') {
       total[0] += 1;
-      if (total[1] < 10) {
+      if (total[1] <= 10) {
         total[1] += 11;
       } else {
         total[1] += 1;
