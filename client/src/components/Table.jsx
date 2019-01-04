@@ -139,12 +139,9 @@ class Table extends React.Component {
       cards, dealersHand, yourHand, player,
     } = this.state;
     const { unused } = cards;
-    console.log('prev hands', dealersHand.cards, yourHand.cards);
     const used = cards.used.concat(dealersHand.cards, yourHand.cards);
     const dealerCards = unused.splice(0, 2);
     const yourCards = unused.splice(0, 2);
-    console.log('dealerCards = ', dealerCards);
-    console.log('yourCards = ', yourCards);
     const dealerTotal = cardMethods.countHand(dealersHand.cards);
     const yourTotal = cardMethods.countHand(yourCards);
     const betInt = parseInt(bet, 10);
