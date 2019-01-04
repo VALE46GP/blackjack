@@ -1,0 +1,12 @@
+X   fix aces bug
+__  add blackjack
+__  add doubledown
+__  add split
+__  build out db (player stats)
+__  separate controls from Table.jsx
+__  build out move judgment (odds chart referencing)
+__  add insurance
+
+
+
+__  prevent quickClick bug (clicking hit/stand before yourHand is fully dealt)

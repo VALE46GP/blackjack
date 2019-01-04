@@ -73,23 +73,7 @@ class Table extends React.Component {
     let dealersCards = dealersHand.cards;
     let total = cardMethods.countHand(dealersCards);
 
-    while (total.every(v => v <= 16)) {
-      const { unused } = cards;
-      dealersCards = dealersCards.concat(unused.splice(0, 1));
-      total = cardMethods.countHand(dealersCards);
-
-      this.setState({
-        cards: {
-          unused,
-          used: cards.used,
-        },
-        dealersHand: {
-          cards: dealersCards,
-          total,
-        },
-      });
-      // CHECK IF OVER 21
-
+    const checkValue = () => {
       if (total[1] > 21) {
         total = [total[0], total[0]];
       }
@@ -108,6 +92,14 @@ class Table extends React.Component {
           stage: 'lost',
           player,
         });
+      } else if (total[1] < yourHand.total[1]) {
+        player.money += (bet * 2);
+        player.gamesWon += 1;
+        player.moneyWon += bet;
+        this.setState({
+          stage: 'won',
+          player,
+        });
       } else {
         player.money += bet;
         player.gamesTied += 1;
@@ -116,6 +108,29 @@ class Table extends React.Component {
           player,
         });
       }
+    };
+
+    if (total.some(v => v > 16)) {
+      checkValue();
+    }
+
+    while (total.every(v => v <= 16)) {
+      const { unused } = cards;
+      dealersCards = dealersCards.concat(unused.splice(0, 1));
+      total = cardMethods.countHand(dealersCards);
+
+      this.setState({
+        cards: {
+          unused,
+          used: cards.used,
+        },
+        dealersHand: {
+          cards: dealersCards,
+          total,
+        },
+      });
+
+      checkValue();
     }
   }
 
@@ -161,7 +176,9 @@ class Table extends React.Component {
     } = this.state;
     const { unused } = cards;
     const yourCards = yourHand.cards.concat(unused.splice(0, 1));
-    const total = cardMethods.countHand(yourCards);
+    let total = cardMethods.countHand(yourCards);
+
+    console.log(`total = ${total}`);
 
     this.setState({
       cards: {
@@ -175,19 +192,21 @@ class Table extends React.Component {
     });
 
     // check if over 21
-    if (!total.some(v => v <= 21)) {
+    if (total[1] > 21) {
+      total = [total[0], total[0]];
+      this.setState({
+        yourHand: {
+          cards: yourCards,
+          total,
+        },
+      });
+    }
+    if (total[0] > 21) {
       player.gamesLost += 1;
       player.moneyLost += bet;
       this.setState({
         stage: 'lost',
         player,
-      });
-    } else if (total[1] > 21) {
-      this.setState({
-        yourHand: {
-          yourCards,
-          total: [total[0], total[0]],
-        },
       });
     }
   }

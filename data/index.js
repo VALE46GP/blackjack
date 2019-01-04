@@ -56,6 +56,4 @@ const updatePlayer = (playerObject, callback) => {
 
 const updateRecords = (records, callback) => {
   
-}
-
-const 
+};
