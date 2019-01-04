@@ -74,51 +74,59 @@ class Table extends React.Component {
     let total = cardMethods.countHand(dealersCards);
 
     const checkValue = () => {
-      if (total[1] > 21) {
-        total = [total[0], total[0]];
-      }
-      if (total[1] > 21) {
-        player.money += (bet * 2);
-        player.gamesWon += 1;
-        player.moneyWon += bet;
-        this.setState({
-          stage: 'won',
-          player,
-        });
-      } else if (total[1] > yourHand.total[1]) {
+      if (total === 'blackjack') {
         player.gamesLost += 1;
         player.moneyLost += bet;
         this.setState({
           stage: 'lost',
           player,
         });
-      } else if (total[1] < yourHand.total[1]) {
-        player.money += (bet * 2);
-        player.gamesWon += 1;
-        player.moneyWon += bet;
-        this.setState({
-          stage: 'won',
-          player,
-        });
       } else {
-        player.money += bet;
-        player.gamesTied += 1;
-        this.setState({
-          stage: 'tie',
-          player,
-        });
+        if (total[1] > 21) {
+          total = [total[0], total[0]];
+        }
+        if (total[1] > 21) {
+          player.money += (bet * 2);
+          player.gamesWon += 1;
+          player.moneyWon += bet;
+          this.setState({
+            stage: 'won',
+            player,
+          });
+        } else if (total[1] > yourHand.total[1]) {
+          player.gamesLost += 1;
+          player.moneyLost += bet;
+          this.setState({
+            stage: 'lost',
+            player,
+          });
+        } else if (total[1] < yourHand.total[1]) {
+          player.money += (bet * 2);
+          player.gamesWon += 1;
+          player.moneyWon += bet;
+          this.setState({
+            stage: 'won',
+            player,
+          });
+        } else {
+          player.money += bet;
+          player.gamesTied += 1;
+          this.setState({
+            stage: 'tie',
+            player,
+          });
+        }
       }
     };
 
-    if (total.some(v => v > 16)) {
+    if (total === 'blackjack' || total.some(v => v > 16)) {
       checkValue();
     }
 
-    while (total.every(v => v <= 16)) {
+    while (total !== 'blackjack' && total.every(v => v <= 16)) {
       const { unused } = cards;
       dealersCards = dealersCards.concat(unused.splice(0, 1));
       total = cardMethods.countHand(dealersCards);
-
       this.setState({
         cards: {
           unused,
@@ -129,7 +137,6 @@ class Table extends React.Component {
           total,
         },
       });
-
       checkValue();
     }
   }
@@ -142,33 +149,74 @@ class Table extends React.Component {
     const used = cards.used.concat(dealersHand.cards, yourHand.cards);
     const dealerCards = unused.splice(0, 2);
     const yourCards = unused.splice(0, 2);
-    const dealerTotal = cardMethods.countHand(dealersHand.cards);
+    const dealerTotal = cardMethods.countHand(dealerCards);
     const yourTotal = cardMethods.countHand(yourCards);
     const betInt = parseInt(bet, 10);
     player.gamesPlayed += 1;
     player.money -= betInt;
 
     if (yourTotal === 'blackjack') {
-      
+      if (dealerTotal === 'blackjack') {
+        player.money += bet;
+        player.gamesTied += 1;
+        this.setState({
+          cards: {
+            unused,
+            used,
+          },
+          dealersHand: {
+            cards: dealerCards,
+            total: dealerTotal,
+          },
+          yourHand: {
+            cards: yourCards,
+            total: yourTotal,
+          },
+          bet: betInt,
+          stage: 'tie',
+          player,
+        });
+      } else {
+        player.money += (bet * 2.5);
+        player.gamesWon += 1;
+        player.moneyWon += bet * 1.5;
+        this.setState({
+          cards: {
+            unused,
+            used,
+          },
+          dealersHand: {
+            cards: dealerCards,
+            total: dealerTotal,
+          },
+          yourHand: {
+            cards: yourCards,
+            total: yourTotal,
+          },
+          bet: betInt,
+          stage: 'won',
+          player,
+        });
+      }
+    } else {
+      this.setState({
+        cards: {
+          unused,
+          used,
+        },
+        dealersHand: {
+          cards: dealerCards,
+          total: dealerTotal,
+        },
+        yourHand: {
+          cards: yourCards,
+          total: yourTotal,
+        },
+        bet: betInt,
+        stage: 'play',
+        player,
+      });
     }
-
-    this.setState({
-      cards: {
-        unused,
-        used,
-      },
-      dealersHand: {
-        cards: dealerCards,
-        total: dealerTotal,
-      },
-      yourHand: {
-        cards: yourCards,
-        total: yourTotal,
-      },
-      bet: betInt,
-      stage: 'play',
-      player,
-    });
   }
 
   hit() {
@@ -214,7 +262,6 @@ class Table extends React.Component {
 
   stay() {
     const { dealerHit } = this;
-    const { dealersHand } = this.state;
     this.setState({
       stage: 'dealerPlay',
     });

@@ -13,7 +13,8 @@ cardMethods.shuffle = (cards) => {
 
 cardMethods.generate = (numOfDecks) => {
   const suits = ['H', 'C', 'S', 'D'];
-  const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+  // const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+  const values = ['A', 'A', 'A', 10, 'J', 'Q', 'K'];
   const deck = [];
 
   suits.forEach((suit) => {
@@ -29,7 +30,7 @@ cardMethods.generate = (numOfDecks) => {
 };
 
 cardMethods.isBlackjack = (cards) => {
-  const ten = [10, 'J', 'Q', 'K'];
+  const ten = ['10', 'J', 'Q', 'K'];
   const values = cards.map(c => c.slice(0, c.length - 1));
   if (ten.includes(values[0]) || ten.includes(values[1])) {
     if (values.includes('A')) {
@@ -40,6 +41,7 @@ cardMethods.isBlackjack = (cards) => {
 };
 
 cardMethods.countHand = (cards) => {
+  console.log(`counting cards: ${cards}`);
   if (cards.length === 2 && cardMethods.isBlackjack(cards)) {
     return 'blackjack';
   }
