@@ -42,7 +42,7 @@ cardMethods.countHand = (cards) => {
         total[1] += 1;
       }
     } else {
-      total.forEach((v, i) => { total[i] += parseInt(value, 10); });
+      total = total.map(v => v + parseInt(value, 10));
     }
   });
   return total;
