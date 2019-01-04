@@ -2,6 +2,7 @@ X   fix aces bug
 __  add blackjack
 __  add doubledown
 __  add split
+__  add tests
 __  build out db (player stats)
 __  separate controls from Table.jsx
 __  build out move judgment (odds chart referencing)

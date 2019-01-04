@@ -148,6 +148,10 @@ class Table extends React.Component {
     player.gamesPlayed += 1;
     player.money -= betInt;
 
+    if (yourTotal === 'blackjack') {
+      
+    }
+
     this.setState({
       cards: {
         unused,
