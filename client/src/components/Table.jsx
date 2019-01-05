@@ -33,6 +33,7 @@ class Table extends React.Component {
     this.hit = this.hit.bind(this);
     this.dealerHit = this.dealerHit.bind(this);
     this.stay = this.stay.bind(this);
+    this.doubledown = this.doubledown.bind(this);
   }
 
   componentDidMount() {
@@ -219,7 +220,7 @@ class Table extends React.Component {
     }
   }
 
-  hit() {
+  hit(doubledown = false) {
     const {
       cards, yourHand, player, bet,
     } = this.state;
@@ -268,6 +269,16 @@ class Table extends React.Component {
     setTimeout(() => { dealerHit(); }, 750);
   }
 
+  doubledown() {
+    const { bet } = this.state;
+    this.hit();
+    this.setState({
+      bet: parseInt(bet * 2, 10),
+      stage: 'dealerPlay',
+    });
+    setTimeout(() => { this.dealerHit(); }, 750);
+  }
+
   // END CONTROLS ////////////////////////////////////////////////////////////
 
   render() {
@@ -282,7 +293,7 @@ class Table extends React.Component {
         <hr />
         <div className="main-flex">
           <div>
-            <Controls deal={this.deal} hit={this.hit} stay={this.stay} player={player} stage={stage} />
+            <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
           </div>
           <div className="main-flex">
             <div className="game-col">

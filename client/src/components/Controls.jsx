@@ -9,7 +9,7 @@ class Controls extends React.Component {
     };
   }
 
-  handleBetChange(e) {
+  handleBetChange(event) {
     this.setState({
       bet: event.target.value,
     });
@@ -17,7 +17,7 @@ class Controls extends React.Component {
 
   render() {
     const {
-      deal, hit, stay, player, stage,
+      deal, hit, stay, doubledown, player, stage,
     } = this.props;
     const { bet } = this.state;
     if (stage === 'play') {
@@ -27,7 +27,12 @@ class Controls extends React.Component {
           <div>
             <button type="submit" onClick={() => hit()}>Hit</button>
           </div>
-          <button type="submit" onClick={() => setTimeout(function() { stay(); }, 500)}>Stay</button>
+          <div>
+            <button type="submit" onClick={() => setTimeout(function() { stay(); }, 500)}>Stay</button>
+          </div>
+          <div>
+            <button type="submit" onClick={() => doubledown()}>Doubledown</button>
+          </div>
         </div>
       );
     }
