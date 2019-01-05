@@ -220,7 +220,7 @@ class Table extends React.Component {
     }
   }
 
-  hit(doubledown = false) {
+  hit() {
     const {
       cards, yourHand, player, bet,
     } = this.state;
@@ -270,11 +270,14 @@ class Table extends React.Component {
   }
 
   doubledown() {
-    const { bet } = this.state;
+    const { bet, player } = this.state;
+    const betInt = parseInt(bet, 10);
     this.hit();
+    player.money -= betInt;
     this.setState({
-      bet: parseInt(bet * 2, 10),
+      bet: betInt * 2,
       stage: 'dealerPlay',
+      player,
     });
     setTimeout(() => { this.dealerHit(); }, 750);
   }
