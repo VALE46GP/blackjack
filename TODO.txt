@@ -1,5 +1,6 @@
 X   fix aces bug
-__  add blackjack
+X   add blackjack
+X   correct blackjack bets
 __  add doubledown
 __  add split
 __  add tests

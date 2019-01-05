@@ -86,7 +86,7 @@ class Table extends React.Component {
           total = [total[0], total[0]];
         }
         if (total[1] > 21) {
-          player.money += (bet * 2);
+          player.money += bet * 2;
           player.gamesWon += 1;
           player.moneyWon += bet;
           this.setState({
@@ -101,7 +101,7 @@ class Table extends React.Component {
             player,
           });
         } else if (total[1] < yourHand.total[1]) {
-          player.money += (bet * 2);
+          player.money += bet * 2;
           player.gamesWon += 1;
           player.moneyWon += bet;
           this.setState({
@@ -157,7 +157,7 @@ class Table extends React.Component {
 
     if (yourTotal === 'blackjack') {
       if (dealerTotal === 'blackjack') {
-        player.money += bet;
+        player.money += betInt;
         player.gamesTied += 1;
         this.setState({
           cards: {
@@ -177,9 +177,9 @@ class Table extends React.Component {
           player,
         });
       } else {
-        player.money += (bet * 2.5);
+        player.money += betInt * 2.5;
         player.gamesWon += 1;
-        player.moneyWon += bet * 1.5;
+        player.moneyWon += betInt * 1.5;
         this.setState({
           cards: {
             unused,
