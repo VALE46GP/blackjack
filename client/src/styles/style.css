@@ -1,5 +1,8 @@
 
-*{font-family:'Niconne';}
+*{
+  font-family:'Niconne';
+  cursor: pointer;
+}
 
 p { font-size: 105%; }
 
@@ -110,6 +113,15 @@ input { font-size: 105%; }
   background-color: #4CAF50;
   background-image: linear-gradient(to bottom right, #607D8B, #85cc8c);
   border-radius: 15px;
+  border-style: groove;
+}
+
+.active:hover {
+  background-image: linear-gradient(to bottom right, #c2d1d8, #d6ecd8);
+}
+
+.active:active {
+  border-style: inset;
 }
 
 .inactive {
