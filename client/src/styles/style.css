@@ -46,9 +46,9 @@ input { font-size: 105%; }
 
 .game-container {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 200px 20px 1fr;
   grid-template-rows: 150px 20px 150px 150px 150px 150px 150px;
-  grid-template-areas: "dl dr" ". ." "p1l p1r" "p2l p2r" "p3l p3r" "p4l p4r" "p5l p5r";
+  grid-template-areas: "dl . dr" ". . ." "p1l . p1r" "p2l . p2r" "p3l . p3r" "p4l . p4r" "p5l . p5r";
 }
 
 .p1l { grid-area: p1l; }

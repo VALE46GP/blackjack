@@ -222,7 +222,6 @@ class Table extends React.Component {
   }
 
   hit() {
-    alert('hit');
     const {
       cards, yourHand, player, bet,
     } = this.state;
@@ -304,6 +303,12 @@ class Table extends React.Component {
               </div>
               <div className="p1l">
                 <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
+              </div>
+              <div className="dr">
+                <Dealer hand={dealersHand} stage={stage} />
+              </div>
+              <div className="p1r">
+                <You hand={yourHand} />
               </div>
             </div>
           </div>
