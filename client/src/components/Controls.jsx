@@ -22,10 +22,10 @@ class Controls extends React.Component {
     const { bet } = this.state;
     return (
       <div className="controls-container">
-        <div className="hit" onClick={() => hit()} onKeyUp={() => hit()} role="button" tabIndex={0}>HIT</div>
-        <div className="stay" onClick={() => setTimeout(function() { stay(); }, 500)} onKeyUp={() => setTimeout(function() { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
-        <div className="double" onClick={() => doubledown()} onKeyUp={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
-        <div className="split" onClick={() => doubledown()} onKeyUp={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
+        <div className="hit" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
+        <div className="stay" onClick={() => setTimeout(function() { stay(); }, 500)} onKeyPress={() => setTimeout(function() { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
+        <div className="double" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
+        <div className="split" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
         <div className="bet">( BET )</div>
       </div>
     );

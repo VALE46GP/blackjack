@@ -1,17 +1,11 @@
 
 *{font-family:'Niconne';}
 
-p {
-  font-size: 105%;
-}
+p { font-size: 105%; }
 
-button {
-  font-size: 105%;
-}
+button { font-size: 105%; }
 
-input {
-  font-size: 105%;
-}
+input { font-size: 105%; }
 
 .background {
   /* The image used */
@@ -60,7 +54,7 @@ input {
   border-style: solid;
   border-width: thin;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 5px;
   font: caption;
 }
 
@@ -72,11 +66,14 @@ input {
 
 .split { grid-area: split; }
 
-.bet { grid-area: bet; }
-
-.title {
-  text-align: center;
+.bet {
+  grid-area: bet;
+  color: green;
+  border-color: black;
+  background-color: black;
 }
+
+.title { text-align: center; }
 
 .game-col {
   min-width: 300px;
@@ -89,21 +86,13 @@ input {
   position: absolute;
 }
 
-.dealer{
-  margin-bottom: 15px;
-}
+.dealer{ margin-bottom: 15px; }
 
-.dealer h2{
-  margin-bottom: 15px;
-}
+.dealer h2{ margin-bottom: 15px; }
 
-.you{
-  margin-top: 10px;
-}
+.you{ margin-top: 10px; }
 
-.you h2{
-  margin-top: 10px;
-}
+.you h2{ margin-top: 10px; }
 
 .small-margins{
   margin-top: 5px;

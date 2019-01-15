@@ -299,11 +299,13 @@ class Table extends React.Component {
           <div className="game">
             <p>GAME</p>
             <div className="game-container">
-              <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
+              <div className="p1l">
+                <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
+              </div>
             </div>
           </div>
           <div className="stats">
-            <p>STATS</p>
+            <Stats bet={bet} player={player} />
           </div>
         </div>
       </div>
