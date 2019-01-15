@@ -29,8 +29,8 @@ class Bet extends React.Component {
 
     if (stage === 'play') {
       return (
-        <div>
-          <p>Dealer:</p>
+        <div className="dealer-label">
+          <h1>Dealer:</h1>
         </div>
       );
     }
