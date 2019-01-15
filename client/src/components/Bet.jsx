@@ -10,23 +10,21 @@ class Bet extends React.Component {
 
   handleBetChange(event) {
     this.setState({
-      bet: event.target.value,
+      bet: event.target.value || 0,
     });
   }
 
   render() {
     const {
-      deal, hit, stay, doubledown, player, stage,
+      deal, hit, stay, doubledown, player, stage, bet
     } = this.props;
-    const { bet } = this.state;
     return (
-      <div>
-        <div>
+      <div className="bet-container">
+        <div className="bet-input active">
           Bet:
-          {' '}
-          <input type="number" onChange={this.handleBetChange.bind(this)} name="bet" min="1" max={player.money} />
+          <input className="bet-number-input" type="number" onChange={this.handleBetChange.bind(this)} name="bet" min="1" max={player.money} placeholder={bet} />
         </div>
-        <button type="submit" onClick={() => deal(bet)}>Deal</button>
+        <div className="bet-deal active" onClick={() => deal(bet)} onKeyPress={() => deal(bet)} role="button" tabIndex={0}>DEAL</div>
       </div>
     );
   }

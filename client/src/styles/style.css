@@ -97,19 +97,53 @@ input { font-size: 105%; }
 
 .split { grid-area: split; }
 
-.bet {
+.bet-info {
   grid-area: bet;
   color: green;
   border-color: black;
   background-color: black;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
-.grad1 {
+.active {
   height: 33px;
   background-color: #4CAF50;
   background-image: linear-gradient(to bottom right, #607D8B, #85cc8c);
   border-radius: 15px;
+}
+
+.inactive {
+  height: 33px;
+  background-color: #4caf5000;
+  background-image: linear-gradient(to bottom right, #607d8b26, #85cc8c29);
+  border-radius: 15px;
+}
+
+.bet-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "bet-input" "bet-deal";
+}
+
+.bet-input {
+  grid-area: bet-input;
+  text-align: center;
+  padding-top: 10px;
+  height: 33px;
+
+}
+
+.bet-number-input {
+  background: none;
+  border-style: inset;
+}
+
+.bet-deal {
+  grid-area: bet-deal;
+  text-align: center;
+  padding-top: 17px;
+  font: caption;
 }
 
 .title { text-align: center; }
@@ -127,15 +161,19 @@ input { font-size: 105%; }
 
 .dealer{ margin-bottom: 15px; }
 
-.dealer h2{ margin-bottom: 15px; }
+.dealer h2 { margin-bottom: 15px; }
 
-.you{ margin-top: 10px; }
+.you { margin-top: 10px; }
 
-.you h2{ margin-top: 10px; }
+.you h2 { margin-top: 10px; }
 
-.small-margins{
+.small-margins {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.avatar {
+  border-radius: 25%;
 }
 
 /* -- START OF OLD CSS --
