@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Dealer from './Dealer';
+import Bet from './Bet';
 import You from './You';
 import Stats from './Stats';
 import Controls from './Controls';
@@ -297,8 +298,10 @@ class Table extends React.Component {
         <hr />
         <div className="main-flex">
           <div className="game">
-            <p>GAME</p>
             <div className="game-container">
+              <div className="dl">
+                <Bet deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
+              </div>
               <div className="p1l">
                 <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
               </div>

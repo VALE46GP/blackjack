@@ -43,6 +43,39 @@ input { font-size: 105%; }
   padding-left: 10px !important;
 }
 
+
+.game-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 150px 20px 150px 150px 150px 150px 150px;
+  grid-template-areas: "dl dr" ". ." "p1l p1r" "p2l p2r" "p3l p3r" "p4l p4r" "p5l p5r";
+}
+
+.p1l { grid-area: p1l; }
+
+.p2l { grid-area: p2l; }
+
+.p3l { grid-area: p3l; }
+
+.p4l { grid-area: p4l; }
+
+.p5l { grid-area: p5l; }
+
+.p5r { grid-area: p5r; }
+
+.p4r { grid-area: p4r; }
+
+.p3r { grid-area: p3r; }
+
+.p2r { grid-area: p2r; }
+
+.p1r { grid-area: p1r; }
+
+.dl { grid-area: dl; }
+
+.dr { grid-area: dr; }
+
+
 .controls-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -51,10 +84,8 @@ input { font-size: 105%; }
 }
 
 .controls-container > div {
-  border-style: solid;
-  border-width: thin;
   text-align: center;
-  padding-top: 5px;
+  padding-top: 17px;
   font: caption;
 }
 
@@ -71,6 +102,14 @@ input { font-size: 105%; }
   color: green;
   border-color: black;
   background-color: black;
+  border-radius: 5px;
+}
+
+.grad1 {
+  height: 33px;
+  background-color: #4CAF50;
+  background-image: linear-gradient(to bottom right, #607D8B, #85cc8c);
+  border-radius: 15px;
 }
 
 .title { text-align: center; }
@@ -149,40 +188,6 @@ input { font-size: 105%; }
 }
 
 -- END OF OLD CSS-- */
-
-
-/* -- NEW CSS GRID ----------------------------------------------------------------------------- */
-
-.game-container {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: 150px 20px 150px 150px 150px 150px 150px;
-  grid-template-areas: "dl dr" ". ." "p1l p1r" "p2l p2r" "p3l p3r" "p4l p4r" "p5l p5r";
-}
-
-.p1l { grid-area: p1l; }
-
-.p2l { grid-area: p2l; }
-
-.p3l { grid-area: p3l; }
-
-.p4l { grid-area: p4l; }
-
-.p5l { grid-area: p5l; }
-
-.p5r { grid-area: p5r; }
-
-.p4r { grid-area: p4r; }
-
-.p3r { grid-area: p3r; }
-
-.p2r { grid-area: p2r; }
-
-.p1r { grid-area: p1r; }
-
-.dl { grid-area: dl; }
-
-.dr { grid-area: dr; }
 
 /* 
 <div class="grid-container">
