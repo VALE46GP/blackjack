@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Dealer from './Dealer';
+import Bet from './Bet';
 import You from './You';
 import Stats from './Stats';
 import Controls from './Controls';
@@ -295,21 +296,23 @@ class Table extends React.Component {
         </div>
         <hr />
         <div className="main-flex">
-          <div>
-            <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
-          </div>
-          <div className="main-flex">
-            <div className="game-col">
-              <div className="front">
+          <div className="game">
+            <div className="game-container">
+              <div className="dl">
+                <Bet deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} bet={bet} />
+              </div>
+              <div className="p1l">
+                <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} bet={bet} />
+              </div>
+              <div className="dr">
                 <Dealer hand={dealersHand} stage={stage} />
+              </div>
+              <div className="p1r">
                 <You hand={yourHand} />
               </div>
-              <span>
-                <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
-              </span>
             </div>
           </div>
-          <div>
+          <div className="stats">
             <Stats bet={bet} player={player} />
           </div>
         </div>
@@ -319,3 +322,27 @@ class Table extends React.Component {
 }
 
 export default Table;
+
+/*
+
+<div className="main-flex">
+<div>
+  <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
+</div>
+<div className="main-flex">
+<div className="game-col">
+  <div className="front">
+    <Dealer hand={dealersHand} stage={stage} />
+    <You hand={yourHand} />
+  </div>
+  <span>
+    <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
+  </span>
+</div>
+</div>
+<div>
+<Stats bet={bet} player={player} />
+</div>
+</div>
+
+*/

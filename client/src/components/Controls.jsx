@@ -9,6 +9,13 @@ class Controls extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { bet } = this.props;
+    this.setState({
+      bet,
+    });
+  }
+
   handleBetChange(event) {
     this.setState({
       bet: event.target.value,
@@ -17,34 +24,19 @@ class Controls extends React.Component {
 
   render() {
     const {
-      deal, hit, stay, doubledown, player, stage,
+      deal, hit, stay, doubledown, player, stage, bet,
     } = this.props;
-    const { bet } = this.state;
-    if (stage === 'play') {
-      return (
-        <div>
-          <h1>Controls</h1>
-          <div>
-            <button type="submit" onClick={() => hit()}>Hit</button>
-          </div>
-          <div>
-            <button type="submit" onClick={() => setTimeout(function() { stay(); }, 500)}>Stay</button>
-          </div>
-          <div>
-            <button type="submit" onClick={() => doubledown()}>Doubledown</button>
-          </div>
-        </div>
-      );
-    }
     return (
-      <div>
-        <h2>Controls</h2>
-        <div>
-          Bet:
+      <div className="controls-container">
+        <div className="hit active" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
+        <div className="stay active" onClick={() => setTimeout(() => { stay(); }, 500)} onKeyPress={() => setTimeout(() => { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
+        <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
+        <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
+        <div className="bet-info">
+          BET:
           {' '}
-          <input type="number" onChange={this.handleBetChange.bind(this)} name="bet" min="1" max={player.money} />
+          {bet}
         </div>
-        <button type="submit" onClick={() => deal(bet)}>Deal</button>
       </div>
     );
   }
