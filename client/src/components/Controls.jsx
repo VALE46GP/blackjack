@@ -20,31 +20,13 @@ class Controls extends React.Component {
       deal, hit, stay, doubledown, player, stage,
     } = this.props;
     const { bet } = this.state;
-    if (stage === 'play') {
-      return (
-        <div>
-          <h1>Controls</h1>
-          <div>
-            <button type="submit" onClick={() => hit()}>Hit</button>
-          </div>
-          <div>
-            <button type="submit" onClick={() => setTimeout(function() { stay(); }, 500)}>Stay</button>
-          </div>
-          <div>
-            <button type="submit" onClick={() => doubledown()}>Doubledown</button>
-          </div>
-        </div>
-      );
-    }
     return (
-      <div>
-        <h2>Controls</h2>
-        <div>
-          Bet:
-          {' '}
-          <input type="number" onChange={this.handleBetChange.bind(this)} name="bet" min="1" max={player.money} />
-        </div>
-        <button type="submit" onClick={() => deal(bet)}>Deal</button>
+      <div className="controls-container">
+        <div className="hit" onClick={() => hit()} onKeyUp={() => hit()} role="button" tabIndex={0}>HIT</div>
+        <div className="stay" onClick={() => setTimeout(function() { stay(); }, 500)} onKeyUp={() => setTimeout(function() { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
+        <div className="double" onClick={() => doubledown()} onKeyUp={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
+        <div className="split" onClick={() => doubledown()} onKeyUp={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
+        <div className="bet">( BET )</div>
       </div>
     );
   }

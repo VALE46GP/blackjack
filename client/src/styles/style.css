@@ -37,6 +37,43 @@ input {
   padding-left: 24px !important;
 }
 
+.game {
+  width: 700px;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+
+.stats {
+  width: 200px;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+
+.controls-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "hit stay" "double split" "bet bet";
+}
+
+.controls-container > div {
+  border-style: solid;
+  border-width: thin;
+  text-align: center;
+  padding-top: 10px;
+  font: caption;
+}
+
+.hit { grid-area: hit; }
+
+.stay { grid-area: stay; }
+
+.double { grid-area: double; }
+
+.split { grid-area: split; }
+
+.bet { grid-area: bet; }
+
 .title {
   text-align: center;
 }
@@ -53,15 +90,15 @@ input {
 }
 
 .dealer{
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 }
 
 .dealer h2{
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .you{
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .you h2{
@@ -72,3 +109,105 @@ input {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+/* -- START OF OLD CSS --
+
+.main-flex {
+  display: flex;
+  flex-direction: row;
+  max-width: 920px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: auto !important;
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
+.title {
+  text-align: center;
+}
+
+.game-col {
+  min-width: 300px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.game-col .front {
+  z-index: 100;
+  position: absolute;
+}
+
+.dealer{
+  margin-bottom: 15px;
+}
+
+.dealer h2{
+  margin-bottom: 15px;
+}
+
+.you{
+  margin-top: 10px;
+}
+
+.you h2{
+  margin-top: 10px;
+}
+
+.small-margins{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+-- END OF OLD CSS-- */
+
+
+/* -- NEW CSS GRID ----------------------------------------------------------------------------- */
+
+.game-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 150px 20px 150px 150px 150px 150px 150px;
+  grid-template-areas: "dl dr" ". ." "p1l p1r" "p2l p2r" "p3l p3r" "p4l p4r" "p5l p5r";
+}
+
+.p1l { grid-area: p1l; }
+
+.p2l { grid-area: p2l; }
+
+.p3l { grid-area: p3l; }
+
+.p4l { grid-area: p4l; }
+
+.p5l { grid-area: p5l; }
+
+.p5r { grid-area: p5r; }
+
+.p4r { grid-area: p4r; }
+
+.p3r { grid-area: p3r; }
+
+.p2r { grid-area: p2r; }
+
+.p1r { grid-area: p1r; }
+
+.dl { grid-area: dl; }
+
+.dr { grid-area: dr; }
+
+/* 
+<div class="grid-container">
+  <div class="p1l"></div>
+  <div class="p2l"></div>
+  <div class="p3l"></div>
+  <div class="p4l"></div>
+  <div class="p5l"></div>
+  <div class="p5r"></div>
+  <div class="p4r"></div>
+  <div class="p3r"></div>
+  <div class="p2r"></div>
+  <div class="p1r"></div>
+  <div class="dl"></div>
+  <div class="dr"></div>
+</div>
+*/

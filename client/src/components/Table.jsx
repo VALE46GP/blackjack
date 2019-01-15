@@ -221,6 +221,7 @@ class Table extends React.Component {
   }
 
   hit() {
+    alert('hit');
     const {
       cards, yourHand, player, bet,
     } = this.state;
@@ -295,22 +296,14 @@ class Table extends React.Component {
         </div>
         <hr />
         <div className="main-flex">
-          <div>
-            <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
-          </div>
-          <div className="main-flex">
-            <div className="game-col">
-              <div className="front">
-                <Dealer hand={dealersHand} stage={stage} />
-                <You hand={yourHand} />
-              </div>
-              <span>
-                <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
-              </span>
+          <div className="game">
+            <p>GAME</p>
+            <div className="game-container">
+              <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
             </div>
           </div>
-          <div>
-            <Stats bet={bet} player={player} />
+          <div className="stats">
+            <p>STATS</p>
           </div>
         </div>
       </div>
@@ -319,3 +312,27 @@ class Table extends React.Component {
 }
 
 export default Table;
+
+/*
+
+<div className="main-flex">
+<div>
+  <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
+</div>
+<div className="main-flex">
+<div className="game-col">
+  <div className="front">
+    <Dealer hand={dealersHand} stage={stage} />
+    <You hand={yourHand} />
+  </div>
+  <span>
+    <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
+  </span>
+</div>
+</div>
+<div>
+<Stats bet={bet} player={player} />
+</div>
+</div>
+
+*/
