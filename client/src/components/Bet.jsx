@@ -8,6 +8,13 @@ class Bet extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { bet } = this.props;
+    this.setState({
+      bet,
+    });
+  }
+
   handleBetChange(event) {
     this.setState({
       bet: event.target.value || 0,
@@ -16,8 +23,17 @@ class Bet extends React.Component {
 
   render() {
     const {
-      deal, hit, stay, doubledown, player, stage, bet
+      deal, hit, stay, doubledown, player, stage,
     } = this.props;
+    const { bet } = this.state;
+
+    if (stage === 'play') {
+      return (
+        <div>
+          <p>Dealer:</p>
+        </div>
+      );
+    }
     return (
       <div className="bet-container">
         <div className="bet-input active">
