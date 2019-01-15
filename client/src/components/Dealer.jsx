@@ -28,9 +28,7 @@ class Dealer extends React.Component {
       }
     }
     return (
-      <div className="dealer">
-        <h2 className="center">Dealer</h2>
-      </div>
+      <div className="dealer" />
     );
   }
 }
