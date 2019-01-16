@@ -10,9 +10,10 @@ class Controls extends React.Component {
   }
 
   componentDidMount() {
-    const { bet } = this.props;
+    const { bet, totals } = this.props;
     this.setState({
       bet,
+      totals,
     });
   }
 
@@ -32,11 +33,7 @@ class Controls extends React.Component {
         <div className="stay active" onClick={() => setTimeout(() => { stay(); }, 500)} onKeyPress={() => setTimeout(() => { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
         <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
         <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
-        <div className="bet-info">
-          BET:
-          {' '}
-          {bet}
-        </div>
+        <div className="bet-info">{bet}</div>
       </div>
     );
   }

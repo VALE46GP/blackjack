@@ -66,4 +66,105 @@ cardMethods.checkIfOver = (total) => { total.some(v => v <= 21); };
 
 // MOVES ///////////////////////////////////////////////////////////////
 
+cardMethods.deal = (state) => {
+  const {
+    cards, dealersHand, yourHand, player,
+  } = state;
+  let { bet } = state;
+  cards.used = cards.used.concat(dealersHand.cards);
+  yourHand.cards.forEach((hand) => {
+    cards.used = cards.used.concat(hand);
+  });
+  dealersHand.cards = cards.unused.splice(0, 2);
+  yourHand.cards = [cards.unused.splice(0, 2)];
+
+  dealersHand.total = cardMethods.countHand(dealersHand.cards);
+  yourHand.total = cardMethods.countHand(yourHand.cards[0]);
+
+  bet = parseInt(bet, 10);
+  player.gamesPlayed += 1;
+  player.money -= bet;
+
+  return state;
+};
+
 export default cardMethods;
+
+//
+// deal(bet) {
+//   const {
+//     cards, dealersHand, yourHand, player,
+//   } = this.state;
+//   const { unused } = cards;
+//   const used = cards.used.concat(dealersHand.cards, yourHand.cards);
+//   const dealerCards = unused.splice(0, 2);
+//   const yourCards = unused.splice(0, 2);
+//   const dealerTotal = cardMethods.countHand(dealerCards);
+//   const yourTotal = cardMethods.countHand(yourCards);
+//   const betInt = parseInt(bet, 10);
+//   player.gamesPlayed += 1;
+//   player.money -= betInt;
+
+//   if (yourTotal === 'blackjack') {
+//     if (dealerTotal === 'blackjack') {
+//       player.money += betInt;
+//       player.gamesTied += 1;
+//       this.setState({
+//         cards: {
+//           unused,
+//           used,
+//         },
+//         dealersHand: {
+//           cards: dealerCards,
+//           total: dealerTotal,
+//         },
+//         yourHand: {
+//           cards: yourCards,
+//           total: yourTotal,
+//         },
+//         bet: betInt,
+//         stage: 'tie',
+//         player,
+//       });
+//     } else {
+//       player.money += betInt * 2.5;
+//       player.gamesWon += 1;
+//       player.moneyWon += betInt * 1.5;
+//       this.setState({
+//         cards: {
+//           unused,
+//           used,
+//         },
+//         dealersHand: {
+//           cards: dealerCards,
+//           total: dealerTotal,
+//         },
+//         yourHand: {
+//           cards: yourCards,
+//           total: yourTotal,
+//         },
+//         bet: betInt,
+//         stage: 'won',
+//         player,
+//       });
+//     }
+//   } else {
+//     this.setState({
+//       cards: {
+//         unused,
+//         used,
+//       },
+//       dealersHand: {
+//         cards: dealerCards,
+//         total: dealerTotal,
+//       },
+//       yourHand: {
+//         cards: yourCards,
+//         total: yourTotal,
+//       },
+//       bet: betInt,
+//       stage: 'play',
+//       player,
+//     });
+//   }
+// }

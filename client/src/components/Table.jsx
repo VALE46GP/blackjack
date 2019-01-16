@@ -23,8 +23,8 @@ class Table extends React.Component {
         total: [0, 0],
       },
       yourHand: {
-        cards: [],
-        total: [0, 0],
+        cards: [[]],
+        total: [[0, 0]],
       },
       bet: 0,
       stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
@@ -144,81 +144,8 @@ class Table extends React.Component {
   }
 
   deal(bet) {
-    const {
-      cards, dealersHand, yourHand, player,
-    } = this.state;
-    const { unused } = cards;
-    const used = cards.used.concat(dealersHand.cards, yourHand.cards);
-    const dealerCards = unused.splice(0, 2);
-    const yourCards = unused.splice(0, 2);
-    const dealerTotal = cardMethods.countHand(dealerCards);
-    const yourTotal = cardMethods.countHand(yourCards);
-    const betInt = parseInt(bet, 10);
-    player.gamesPlayed += 1;
-    player.money -= betInt;
-
-    if (yourTotal === 'blackjack') {
-      if (dealerTotal === 'blackjack') {
-        player.money += betInt;
-        player.gamesTied += 1;
-        this.setState({
-          cards: {
-            unused,
-            used,
-          },
-          dealersHand: {
-            cards: dealerCards,
-            total: dealerTotal,
-          },
-          yourHand: {
-            cards: yourCards,
-            total: yourTotal,
-          },
-          bet: betInt,
-          stage: 'tie',
-          player,
-        });
-      } else {
-        player.money += betInt * 2.5;
-        player.gamesWon += 1;
-        player.moneyWon += betInt * 1.5;
-        this.setState({
-          cards: {
-            unused,
-            used,
-          },
-          dealersHand: {
-            cards: dealerCards,
-            total: dealerTotal,
-          },
-          yourHand: {
-            cards: yourCards,
-            total: yourTotal,
-          },
-          bet: betInt,
-          stage: 'won',
-          player,
-        });
-      }
-    } else {
-      this.setState({
-        cards: {
-          unused,
-          used,
-        },
-        dealersHand: {
-          cards: dealerCards,
-          total: dealerTotal,
-        },
-        yourHand: {
-          cards: yourCards,
-          total: yourTotal,
-        },
-        bet: betInt,
-        stage: 'play',
-        player,
-      });
-    }
+    const newState = cardMethods.deal(Object.assign(this.state, { bet, stage: 'play' }));
+    this.setState(newState);
   }
 
   hit() {
