@@ -25,7 +25,7 @@ class Table extends React.Component {
       yourHand: {
         cards: [[]],
         totals: [[0, 0]],
-        bets: [],
+        bets: [0],
         turn: 0,
       },
       stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
@@ -172,7 +172,7 @@ class Table extends React.Component {
 
   render() {
     const {
-      bet, player, dealersHand, yourHand, stage,
+      player, dealersHand, yourHand, stage,
     } = this.state;
     return (
       <div>
@@ -184,10 +184,10 @@ class Table extends React.Component {
           <div className="game">
             <div className="game-container">
               <div className="dl">
-                <Bet deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} bet={bet} />
+                <Bet deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} bet={yourHand.bet} />
               </div>
               <div className="p1l">
-                <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} bet={bet} />
+                <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} yourHand={yourHand} />
               </div>
               <div className="dr">
                 <Dealer hand={dealersHand} stage={stage} />
@@ -198,7 +198,7 @@ class Table extends React.Component {
             </div>
           </div>
           <div className="stats">
-            <Stats bet={bet} player={player} />
+            <Stats bets={yourHand.bets} player={player} />
           </div>
         </div>
       </div>
