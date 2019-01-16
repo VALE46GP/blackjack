@@ -59,6 +59,9 @@ cardMethods.countHand = (cards) => {
       total = total.map(v => v + parseInt(value, 10));
     }
   });
+  if (total[0] > 21) {
+    return 'bust';
+  }
   return total;
 };
 
@@ -88,9 +91,62 @@ cardMethods.deal = (state) => {
   return state;
 };
 
+cardMethods.hit = (state) => {
+  const {
+    cards, yourHand,
+  } = state;
+  yourHand.cards[yourHand.turn] = yourHand.cards[yourHand.turn].concat(cards.unused.splice(0, 1));
+  yourHand.totals[yourHand.turn] = cardMethods.countHand(yourHand.cards[yourHand.turn]);
+  if (typeof yourHand.totals[yourHand.turn] === 'string') {
+    yourHand.turn += 1;
+  }
+  return state;
+};
+
 export default cardMethods;
 
 //
+// hit() {
+//   const {
+//     cards, yourHand, player, bet,
+//   } = this.state;
+//   const { unused } = cards;
+//   const yourCards = yourHand.cards.concat(unused.splice(0, 1));
+//   let total = cardMethods.countHand(yourCards);
+
+//   console.log(`total = ${total}`);
+
+//   this.setState({
+//     cards: {
+//       unused,
+//       used: cards.used,
+//     },
+//     yourHand: {
+//       cards: yourCards,
+//       total,
+//     },
+//   });
+
+//   // check if over 21
+//   if (total[1] > 21) {
+//     total = [total[0], total[0]];
+//     this.setState({
+//       yourHand: {
+//         cards: yourCards,
+//         total,
+//       },
+//     });
+//   }
+//   if (total[0] > 21) {
+//     player.gamesLost += 1;
+//     player.moneyLost += bet;
+//     this.setState({
+//       stage: 'lost',
+//       player,
+//     });
+//   }
+// }
+
 // deal(bet) {
 //   const {
 //     cards, dealersHand, yourHand, player,

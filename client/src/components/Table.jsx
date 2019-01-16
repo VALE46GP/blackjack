@@ -24,7 +24,8 @@ class Table extends React.Component {
       },
       yourHand: {
         cards: [[]],
-        total: [[0, 0]],
+        totals: [[0, 0]],
+        turn: 0,
       },
       bet: 0,
       stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
@@ -149,44 +150,8 @@ class Table extends React.Component {
   }
 
   hit() {
-    const {
-      cards, yourHand, player, bet,
-    } = this.state;
-    const { unused } = cards;
-    const yourCards = yourHand.cards.concat(unused.splice(0, 1));
-    let total = cardMethods.countHand(yourCards);
-
-    console.log(`total = ${total}`);
-
-    this.setState({
-      cards: {
-        unused,
-        used: cards.used,
-      },
-      yourHand: {
-        cards: yourCards,
-        total,
-      },
-    });
-
-    // check if over 21
-    if (total[1] > 21) {
-      total = [total[0], total[0]];
-      this.setState({
-        yourHand: {
-          cards: yourCards,
-          total,
-        },
-      });
-    }
-    if (total[0] > 21) {
-      player.gamesLost += 1;
-      player.moneyLost += bet;
-      this.setState({
-        stage: 'lost',
-        player,
-      });
-    }
+    const newState = cardMethods.hit(this.state);
+    this.setState(newState);
   }
 
   stay() {
