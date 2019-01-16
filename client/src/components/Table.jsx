@@ -155,11 +155,10 @@ class Table extends React.Component {
   }
 
   stay() {
-    const { dealerHit } = this;
+    const { yourHand } = this.state;
     this.setState({
-      stage: 'dealerPlay',
+      yourHand: Object.assign(yourHand, { turn: yourHand.turn + 1 }),
     });
-    setTimeout(() => { dealerHit(); }, 750);
   }
 
   doubledown() {
@@ -236,5 +235,15 @@ export default Table;
 <Stats bet={bet} player={player} />
 </div>
 </div>
+
+// DONT FORGET THIS DELAY AFTER LAST TURN !!
+
+ stay() {
+    const { dealerHit } = this;
+    this.setState({
+      stage: 'dealerPlay',
+    });
+    setTimeout(() => { dealerHit(); }, 750);
+  }
 
 */
