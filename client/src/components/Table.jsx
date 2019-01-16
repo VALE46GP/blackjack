@@ -25,9 +25,9 @@ class Table extends React.Component {
       yourHand: {
         cards: [[]],
         totals: [[0, 0]],
+        bets: [],
         turn: 0,
       },
-      bet: 0,
       stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
       player: {},
     };
@@ -145,7 +145,9 @@ class Table extends React.Component {
   }
 
   deal(bet) {
-    const newState = cardMethods.deal(Object.assign(this.state, { bet, stage: 'play' }));
+    const { yourHand } = this.state;
+    yourHand.bets[0] = bet;
+    const newState = cardMethods.deal(Object.assign(this.state, { yourHand, stage: 'play' }));
     this.setState(newState);
   }
 
@@ -162,16 +164,8 @@ class Table extends React.Component {
   }
 
   doubledown() {
-    const { bet, player } = this.state;
-    const betInt = parseInt(bet, 10);
-    this.hit();
-    player.money -= betInt;
-    this.setState({
-      bet: betInt * 2,
-      stage: 'dealerPlay',
-      player,
-    });
-    setTimeout(() => { this.dealerHit(); }, 750);
+    const newState = cardMethods.doubledown(this.state);
+    this.setState(newState);
   }
 
   // END CONTROLS ////////////////////////////////////////////////////////////

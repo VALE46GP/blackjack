@@ -73,7 +73,6 @@ cardMethods.deal = (state) => {
   const {
     cards, dealersHand, yourHand, player,
   } = state;
-  let { bet } = state;
   cards.used = cards.used.concat(dealersHand.cards);
   yourHand.cards.forEach((hand) => {
     cards.used = cards.used.concat(hand);
@@ -82,11 +81,11 @@ cardMethods.deal = (state) => {
   yourHand.cards = [cards.unused.splice(0, 2)];
 
   dealersHand.total = cardMethods.countHand(dealersHand.cards);
-  yourHand.total = cardMethods.countHand(yourHand.cards[0]);
+  yourHand.totals[0] = cardMethods.countHand(yourHand.cards[0]);
 
-  bet = parseInt(bet, 10);
+  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn], 10);
   player.gamesPlayed += 1;
-  player.money -= bet;
+  player.money -= yourHand.bets[yourHand.turn];
 
   return state;
 };
@@ -103,9 +102,32 @@ cardMethods.hit = (state) => {
   return state;
 };
 
+cardMethods.doubledown = (state) => {
+  const { yourHand, player } = state;
+  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn] * 2, 10);
+  player.money -= yourHand.bets[yourHand.turn];
+
+  const newState = cardMethods.hit(state);
+  newState.yourHand.turn += 1;
+  return newState;
+};
+
 export default cardMethods;
 
 //
+// doubledown() {
+//   const { bet, player } = this.state;
+//   const betInt = parseInt(bet, 10);
+//   this.hit();
+//   player.money -= betInt;
+//   this.setState({
+//     bet: betInt * 2,
+//     stage: 'dealerPlay',
+//     player,
+//   });
+//   setTimeout(() => { this.dealerHit(); }, 750);
+// }
+
 // hit() {
 //   const {
 //     cards, yourHand, player, bet,
