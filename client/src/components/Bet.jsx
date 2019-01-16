@@ -9,9 +9,9 @@ class Bet extends React.Component {
   }
 
   componentDidMount() {
-    const { bet } = this.props;
+    const { state } = this.props;
     this.setState({
-      bet,
+      bet: state.yourHand.bets[0],
     });
   }
 
@@ -22,9 +22,10 @@ class Bet extends React.Component {
   }
 
   render() {
+    const { state, deal } = this.props;
     const {
-      deal, hit, stay, doubledown, player, stage,
-    } = this.props;
+      player, stage,
+    } = state;
     const { bet } = this.state;
 
     if (stage === 'play') {

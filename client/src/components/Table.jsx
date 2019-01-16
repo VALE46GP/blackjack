@@ -184,10 +184,10 @@ class Table extends React.Component {
           <div className="game">
             <div className="game-container">
               <div className="dl">
-                <Bet deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} bet={yourHand.bet} />
+                <Bet state={this.state} deal={this.deal} />
               </div>
               <div className="p1l">
-                <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} yourHand={yourHand} />
+                <Controls hit={this.hit} stay={this.stay} doubledown={this.doubledown} state={this.state} />
               </div>
               <div className="dr">
                 <Dealer hand={dealersHand} stage={stage} />

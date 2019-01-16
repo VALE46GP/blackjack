@@ -26,8 +26,9 @@ class Controls extends React.Component {
 
   render() {
     const {
-      deal, hit, stay, doubledown, player, stage, yourHand,
+      hit, stay, doubledown, state,
     } = this.props;
+    const { yourHand } = state;
     return (
       <div className="controls-container">
         <div className="hit active" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
