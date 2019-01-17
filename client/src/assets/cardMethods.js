@@ -105,8 +105,8 @@ cardMethods.hit = (state) => {
 
 cardMethods.doubledown = (state) => {
   const { yourHand, player } = state;
-  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn] * 2, 10);
   player.money -= yourHand.bets[yourHand.turn];
+  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn] * 2, 10);
 
   const newState = cardMethods.hit(state);
   newState.yourHand.turn += 1;
