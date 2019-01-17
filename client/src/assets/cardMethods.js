@@ -81,11 +81,12 @@ cardMethods.deal = (state) => {
   yourHand.cards = [cards.unused.splice(0, 2)];
 
   dealersHand.total = cardMethods.countHand(dealersHand.cards);
-  yourHand.totals[0] = cardMethods.countHand(yourHand.cards[0]);
+  yourHand.totals = [cardMethods.countHand(yourHand.cards[0])];
 
-  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn], 10);
+  yourHand.turn = 0;
+  yourHand.bets[0] = parseInt(yourHand.bets[0], 10);
   player.gamesPlayed += 1;
-  player.money -= yourHand.bets[yourHand.turn];
+  player.money -= yourHand.bets[0];
 
   return state;
 };

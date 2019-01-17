@@ -9,16 +9,17 @@ class Controls extends React.Component {
         bets: [0],
         totals: [[]],
         displays: [],
+        turn: 0,
       },
     };
   }
 
-  // componentDidMount() {
-  //   const { yourHand } = this.props;
-  //   this.setState({
-  //     yourHand,
-  //   });
-  // }
+  componentDidMount() {
+    const { state } = this.props;
+    this.setState({
+      yourHand: state.yourHand,
+    });
+  }
 
   // handleBetChange(event) {
   //   this.setState({
@@ -42,23 +43,40 @@ class Controls extends React.Component {
       return `Total: ${total[0]}`;
     };
 
-    return (
-      <div className="ctrl-you-container">
-        <div className="turn0">
-          <div className="controls-container">
-            <div className="hit active" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
-            <div className="stay active" onClick={() => setTimeout(() => { stay(); }, 500)} onKeyPress={() => setTimeout(() => { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
-            <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
-            <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
-            <div className="bet-info">
-              Bet: {yourHand.bets[0]}
-              <br />
-              {displayTotal(yourHand.totals[yourHand.turn])}
+    if (yourHand.turn < 0) {
+      return (
+        <div className="controls-container">
+        </div>
+      );
+    }
+    for (let i = 0; i < yourHand.totals.length; i += 1) {
+      if (i === yourHand.turn) {
+        return (
+          <div className="ctrl-you-container">
+            <div className={`turn${yourHand.turn}`}>
+              <div className="controls-container">
+                <div className="hit active" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
+                <div className="stay active" onClick={() => setTimeout(() => { stay(); }, 500)} onKeyPress={() => setTimeout(() => { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
+                <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
+                <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
+                <div className="bet-info">
+                  Bet: {yourHand.bets[yourHand.turn]}
+                  <br />
+                  {displayTotal(yourHand.totals[yourHand.turn])}
+                </div>
+              </div>
             </div>
           </div>
+        );
+      }
+      return (
+        <div className="bet-info">
+          Bet: {yourHand.bets[yourHand.turn]}
+          <br />
+          {displayTotal(yourHand.totals[yourHand.turn])}
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

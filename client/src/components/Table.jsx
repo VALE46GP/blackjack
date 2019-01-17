@@ -26,7 +26,7 @@ class Table extends React.Component {
         cards: [[]],
         totals: [[0, 0]],
         bets: [0],
-        turn: 0,
+        turn: -1,
       },
       stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
       player: {},
@@ -147,6 +147,7 @@ class Table extends React.Component {
   deal(bet) {
     const { yourHand } = this.state;
     yourHand.bets[0] = bet;
+    yourHand.turn = 0;
     const newState = cardMethods.deal(Object.assign(this.state, { yourHand, stage: 'play' }));
     this.setState(newState);
   }
@@ -193,7 +194,7 @@ class Table extends React.Component {
                 <Controls hit={this.hit} stay={this.stay} doubledown={this.doubledown} state={this.state} />
               </div>
               <div className="your-side">
-                <You hand={yourHand} />
+                <You yourHand={yourHand} />
               </div>
             </div>
           </div>
