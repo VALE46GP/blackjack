@@ -51,32 +51,25 @@ input { font-size: 105%; }
   display: grid;
   grid-template-columns: 200px 20px 1fr;
   grid-template-rows: 150px 20px 150px 150px 150px 150px 150px;
-  grid-template-areas: "dl . dr" ". . ." "p1l . p1r" "p2l . p2r" "p3l . p3r" "p4l . p4r" "p5l . p5r";
+  grid-template-areas: "dl . dr" ". . ." "ctrl . you" "ctrl . you" "ctrl . you" "ctrl . you" "ctrl . you";
 }
-
-.p1l { grid-area: p1l; }
-
-.p2l { grid-area: p2l; }
-
-.p3l { grid-area: p3l; }
-
-.p4l { grid-area: p4l; }
-
-.p5l { grid-area: p5l; }
-
-.p5r { grid-area: p5r; }
-
-.p4r { grid-area: p4r; }
-
-.p3r { grid-area: p3r; }
-
-.p2r { grid-area: p2r; }
-
-.p1r { grid-area: p1r; }
 
 .dl { grid-area: dl; }
 
 .dr { grid-area: dr; }
+
+.ctrl { grid-area: ctrl; }
+
+.your-side { grid-area: you; }
+
+.ctrl-you-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 150px 150px 150px 150px 150px;
+  grid-template-areas: "0" "1" "2" "3" "4";
+}
+
+.turn0 { grid-area: 0; }
 
 
 .controls-container {
@@ -88,20 +81,32 @@ input { font-size: 105%; }
 
 .controls-container > div {
   text-align: center;
-  padding-top: 17px;
   font: caption;
 }
 
-.hit { grid-area: hit; }
+.hit {
+  grid-area: hit;
+  padding-top: 17px;
+}
 
-.stay { grid-area: stay; }
+.stay {
+  grid-area: stay;
+  padding-top: 17px;
+}
 
-.double { grid-area: double; }
+.double {
+  grid-area: double;
+  padding-top: 17px;
+}
 
-.split { grid-area: split; }
+.split {
+  grid-area: split;
+  padding-top: 17px;
+}
 
 .bet-info {
   grid-area: bet;
+  padding-top: 12px;
   color: green;
   border-color: black;
   background-color: black;
