@@ -65,7 +65,7 @@ input { font-size: 105%; }
 .ctrl-you-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 150px 150px 150px 150px 150px;
+  grid-template-rows: 140px 140px 140px 140px 140px;
   grid-template-areas: "0" "1" "2" "3" "4";
 }
 
@@ -86,35 +86,35 @@ input { font-size: 105%; }
 
 .hit {
   grid-area: hit;
-  padding-top: 17px;
+  padding-top: 12px;
 }
 
 .stay {
   grid-area: stay;
-  padding-top: 17px;
+  padding-top: 12px;
 }
 
 .double {
   grid-area: double;
-  padding-top: 17px;
+  padding-top: 12px;
 }
 
 .split {
   grid-area: split;
-  padding-top: 17px;
+  padding-top: 12px;
 }
 
 .bet-info {
   grid-area: bet;
-  padding-top: 12px;
+  padding-top: 8px;
   color: green;
   border-color: black;
   background-color: black;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 .active {
-  height: 33px;
+  height: 28px;
   background-color: #4CAF50;
   background-image: linear-gradient(to bottom right, #607D8B, #85cc8c);
   border-radius: 15px;
@@ -130,7 +130,7 @@ input { font-size: 105%; }
 }
 
 .inactive {
-  height: 33px;
+  height: 28px;
   background-color: #4caf5000;
   background-image: linear-gradient(to bottom right, #607d8b26, #85cc8c29);
   border-radius: 15px;
@@ -139,8 +139,8 @@ input { font-size: 105%; }
 .bet-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "bet-input" "bet-deal";
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "bet-input" "bet-deal" "dealer-info";
 }
 
 .bet-input {
@@ -148,7 +148,6 @@ input { font-size: 105%; }
   text-align: center;
   padding-top: 5px;
   height: 33px;
-
 }
 
 .bet-number-input {
@@ -160,6 +159,17 @@ input { font-size: 105%; }
   grid-area: bet-deal;
   text-align: center;
   padding-top: 17px;
+  font: caption;
+}
+
+.dealer-info {
+  grid-area: dealer-info;
+  text-align: center;
+  padding-top: 17px;
+  color: green;
+  border-color: black;
+  background-color: black;
+  border-radius: 10px;
   font: caption;
 }
 

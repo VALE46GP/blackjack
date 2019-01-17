@@ -70,78 +70,8 @@ class Table extends React.Component {
   // CONTROLS ////////////////////////////////////////////////////////////////
 
   dealerHit() {
-    const {
-      cards, dealersHand, yourHand, player, bet,
-    } = this.state;
-    let dealersCards = dealersHand.cards;
-    let total = cardMethods.countHand(dealersCards);
-
-    const checkValue = () => {
-      if (total === 'blackjack') {
-        player.gamesLost += 1;
-        player.moneyLost += bet;
-        this.setState({
-          stage: 'lost',
-          player,
-        });
-      } else {
-        if (total[1] > 21) {
-          total = [total[0], total[0]];
-        }
-        if (total[1] > 21) {
-          player.money += bet * 2;
-          player.gamesWon += 1;
-          player.moneyWon += bet;
-          this.setState({
-            stage: 'won',
-            player,
-          });
-        } else if (total[1] > yourHand.total[1]) {
-          player.gamesLost += 1;
-          player.moneyLost += bet;
-          this.setState({
-            stage: 'lost',
-            player,
-          });
-        } else if (total[1] < yourHand.total[1]) {
-          player.money += bet * 2;
-          player.gamesWon += 1;
-          player.moneyWon += bet;
-          this.setState({
-            stage: 'won',
-            player,
-          });
-        } else {
-          player.money += bet;
-          player.gamesTied += 1;
-          this.setState({
-            stage: 'tie',
-            player,
-          });
-        }
-      }
-    };
-
-    if (total === 'blackjack' || total.some(v => v > 16)) {
-      checkValue();
-    }
-
-    while (total !== 'blackjack' && total.every(v => v <= 16)) {
-      const { unused } = cards;
-      dealersCards = dealersCards.concat(unused.splice(0, 1));
-      total = cardMethods.countHand(dealersCards);
-      this.setState({
-        cards: {
-          unused,
-          used: cards.used,
-        },
-        dealersHand: {
-          cards: dealersCards,
-          total,
-        },
-      });
-      checkValue();
-    }
+    const newState = cardMethods.dealerHit(this.state);
+    this.setState(newState);
   }
 
   deal(bet) {
@@ -159,8 +89,10 @@ class Table extends React.Component {
 
   stay() {
     const { yourHand } = this.state;
+    yourHand.turn += 1;
+    this.dealerHit(this.state);
     this.setState({
-      yourHand: Object.assign(yourHand, { turn: yourHand.turn + 1 }),
+      yourHand,
     });
   }
 
@@ -188,7 +120,7 @@ class Table extends React.Component {
                 <Bet state={this.state} deal={this.deal} />
               </div>
               <div className="dr">
-                <Dealer hand={dealersHand} stage={stage} />
+                <Dealer dealersHand={dealersHand} yourHand={yourHand} stage={stage} />
               </div>
               <div className="ctrl">
                 <Controls hit={this.hit} stay={this.stay} doubledown={this.doubledown} state={this.state} />

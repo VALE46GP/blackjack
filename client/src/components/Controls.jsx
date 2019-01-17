@@ -60,9 +60,9 @@ class Controls extends React.Component {
                 <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
                 <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
                 <div className="bet-info">
-                  Bet: {yourHand.bets[yourHand.turn]}
+                  Bet: {yourHand.bets[i]}
                   <br />
-                  {displayTotal(yourHand.totals[yourHand.turn])}
+                  {displayTotal(yourHand.totals[i])}
                 </div>
               </div>
             </div>
@@ -70,10 +70,12 @@ class Controls extends React.Component {
         );
       }
       return (
-        <div className="bet-info">
-          Bet: {yourHand.bets[yourHand.turn]}
-          <br />
-          {displayTotal(yourHand.totals[yourHand.turn])}
+        <div className="controls-container">
+          <div className="bet-info">
+            Bet: {yourHand.bets[i]}
+            <br />
+            {displayTotal(yourHand.totals[i])}
+          </div>
         </div>
       );
     }

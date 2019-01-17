@@ -113,9 +113,97 @@ cardMethods.doubledown = (state) => {
   return newState;
 };
 
+cardMethods.dealerHit = (state) => {
+  const {
+    cards, dealersHand,
+  } = state;
+  dealersHand.total = cardMethods.countHand(dealersHand.cards);
+
+  while (typeof dealersHand.total !== 'string' && dealersHand.total.every(v => v <= 16)) {
+    dealersHand.cards = dealersHand.cards.concat(cards.unused.splice(0, 1));
+    dealersHand.total = cardMethods.countHand(dealersHand.cards);
+  }
+  return state;
+};
+
 export default cardMethods;
 
 //
+
+// dealerHit(state) {
+//   const {
+//     cards, dealersHand, yourHand, player, bet,
+//   } = state;
+//   let total = cardMethods.countHand(dealersHand.cards)
+
+//   const checkValue = () => {
+//     if (total === 'blackjack') {
+//       player.gamesLost += 1;
+//       player.moneyLost += bet;
+//       this.setState({
+//         stage: 'lost',
+//         player,
+//       });
+//     } else {
+//       if (total[1] > 21) {
+//         total = [total[0], total[0]];
+//       }
+//       if (total[1] > 21) {
+//         player.money += bet * 2;
+//         player.gamesWon += 1;
+//         player.moneyWon += bet;
+//         this.setState({
+//           stage: 'won',
+//           player,
+//         });
+//       } else if (total[1] > yourHand.total[1]) {
+//         player.gamesLost += 1;
+//         player.moneyLost += bet;
+//         this.setState({
+//           stage: 'lost',
+//           player,
+//         });
+//       } else if (total[1] < yourHand.total[1]) {
+//         player.money += bet * 2;
+//         player.gamesWon += 1;
+//         player.moneyWon += bet;
+//         this.setState({
+//           stage: 'won',
+//           player,
+//         });
+//       } else {
+//         player.money += bet;
+//         player.gamesTied += 1;
+//         this.setState({
+//           stage: 'tie',
+//           player,
+//         });
+//       }
+//     }
+//   };
+
+//   if (total === 'blackjack' || total.some(v => v > 16)) {
+//     checkValue();
+//   }
+
+//   while (total !== 'blackjack' && total.every(v => v <= 16)) {
+//     const { unused } = cards;
+//     dealersHand.cards = dealersHand.cards.concat(unused.splice(0, 1));
+//     total = cardMethods.countHand(dealersHand.cards);
+//     this.setState({
+//       cards: {
+//         unused,
+//         used: cards.used,
+//       },
+//       dealersHand: {
+//         cards: dealersHand.cards,
+//         total,
+//       },
+//     });
+//     checkValue();
+//   }
+// }
+
 // doubledown() {
 //   const { bet, player } = this.state;
 //   const betInt = parseInt(bet, 10);
