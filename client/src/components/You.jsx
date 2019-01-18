@@ -20,7 +20,7 @@ class You extends React.Component {
         <div className="ctrl-you-container">
           <div className={`turn${i}`}>
             <div className="you">
-              {yourHand.cards[i].map((c, i) => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c + i} height="100" />)}
+              {yourHand.cards[i].map((c, e) => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c + e} height="100" />)}
             </div>
           </div>
         </div>

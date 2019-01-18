@@ -41,7 +41,7 @@ cardMethods.isBlackjack = (cards) => {
 
 cardMethods.countHand = (cards) => {
   if (cards.length === 2 && cardMethods.isBlackjack(cards)) {
-    return 'blackjack';
+    return 'BLACKJACK!';
   }
   let total = [0, 0];
   cards.forEach((c) => {
@@ -60,12 +60,80 @@ cardMethods.countHand = (cards) => {
     }
   });
   if (total[0] > 21) {
-    return 'bust';
+    return 'BUST';
   }
   return total;
 };
 
-cardMethods.checkIfOver = (total) => { total.some(v => v <= 21); };
+cardMethods.compare = (state) => {
+  const { dealersHand, yourHand, player } = state;
+  let dealer = dealersHand.total;
+  if (typeof dealer !== 'string') {
+    if (dealer[1] > 21) {
+      dealer = dealer[0];
+    } else {
+      dealer = dealer[1];
+    }
+  }
+
+  for (let i = 0; i < yourHand.cards.length; i += 1) {
+    const bet = yourHand.bets[i];
+    let you = yourHand.totals[i];
+    if (typeof you !== 'string') {
+      if (you[1] > 21) {
+        you = you[0];
+      } else {
+        you = you[1];
+      }
+    }
+
+    if (you === 'BUST') {
+      player.gamesLost += 1;
+      player.moneyLost += bet;
+      yourHand.bets[i] = `${bet} lost`;
+    } else if (dealer === you) {
+      player.money += bet;
+      player.gamesTied += 1;
+      yourHand.totals[i] = 'PUSH';
+      yourHand.bets[i] = 'Break even';
+    } else if (dealer === 'BLACKJACK!') {
+      player.gamesLost += 1;
+      player.moneyLost += bet;
+      yourHand.totals[i] = 'House wins';
+      yourHand.bets[i] = `${bet} lost`;
+    } else if (dealer === 'BUST') {
+      if (you === 'BLACKJACK!') {
+        player.money += parseInt(bet * 2.5, 10);
+        player.gamesWon += 1;
+        player.moneyWon += parseInt(bet * 1.5, 10);
+        yourHand.bets[i] = `${parseInt(bet * 1.5, 10)} won`;
+      } else {
+        player.money += parseInt(bet * 2, 10);
+        player.gamesWon += 1;
+        player.moneyWon += bet;
+        yourHand.totals[i] = 'You win';
+        yourHand.bets[i] = `${bet} won`;
+      }
+    } else if (dealer > you) {
+      player.gamesLost += 1;
+      player.moneyLost += bet;
+      yourHand.totals[i] = 'House wins';
+      yourHand.bets[i] = `${bet} lost`;
+    } else if (dealer < you) {
+      player.money += parseInt(bet * 2, 10);
+      player.gamesWon += 1;
+      player.moneyWon += bet;
+      yourHand.totals[i] = 'You win';
+      yourHand.bets[i] = `${bet}`;
+    } else if (you === 'BLACKJACK!') {
+      player.money += parseInt(bet * 2.5, 10);
+      player.gamesWon += 1;
+      player.moneyWon += parseInt(bet * 1.5, 10);
+      yourHand.bets[i] = `${parseInt(bet * 1.5, 10)} won`;
+    }
+  }
+  return state;
+};
 
 // MOVES ///////////////////////////////////////////////////////////////
 
@@ -114,224 +182,15 @@ cardMethods.doubledown = (state) => {
 };
 
 cardMethods.dealerHit = (state) => {
-  const {
-    cards, dealersHand,
-  } = state;
+  console.log('state = ', state);
+  const { cards, dealersHand } = state;
   dealersHand.total = cardMethods.countHand(dealersHand.cards);
 
   while (typeof dealersHand.total !== 'string' && dealersHand.total.every(v => v <= 16)) {
     dealersHand.cards = dealersHand.cards.concat(cards.unused.splice(0, 1));
     dealersHand.total = cardMethods.countHand(dealersHand.cards);
   }
-  return state;
+  return cardMethods.compare(state);
 };
 
 export default cardMethods;
-
-//
-
-// dealerHit(state) {
-//   const {
-//     cards, dealersHand, yourHand, player, bet,
-//   } = state;
-//   let total = cardMethods.countHand(dealersHand.cards)
-
-//   const checkValue = () => {
-//     if (total === 'blackjack') {
-//       player.gamesLost += 1;
-//       player.moneyLost += bet;
-//       this.setState({
-//         stage: 'lost',
-//         player,
-//       });
-//     } else {
-//       if (total[1] > 21) {
-//         total = [total[0], total[0]];
-//       }
-//       if (total[1] > 21) {
-//         player.money += bet * 2;
-//         player.gamesWon += 1;
-//         player.moneyWon += bet;
-//         this.setState({
-//           stage: 'won',
-//           player,
-//         });
-//       } else if (total[1] > yourHand.total[1]) {
-//         player.gamesLost += 1;
-//         player.moneyLost += bet;
-//         this.setState({
-//           stage: 'lost',
-//           player,
-//         });
-//       } else if (total[1] < yourHand.total[1]) {
-//         player.money += bet * 2;
-//         player.gamesWon += 1;
-//         player.moneyWon += bet;
-//         this.setState({
-//           stage: 'won',
-//           player,
-//         });
-//       } else {
-//         player.money += bet;
-//         player.gamesTied += 1;
-//         this.setState({
-//           stage: 'tie',
-//           player,
-//         });
-//       }
-//     }
-//   };
-
-//   if (total === 'blackjack' || total.some(v => v > 16)) {
-//     checkValue();
-//   }
-
-//   while (total !== 'blackjack' && total.every(v => v <= 16)) {
-//     const { unused } = cards;
-//     dealersHand.cards = dealersHand.cards.concat(unused.splice(0, 1));
-//     total = cardMethods.countHand(dealersHand.cards);
-//     this.setState({
-//       cards: {
-//         unused,
-//         used: cards.used,
-//       },
-//       dealersHand: {
-//         cards: dealersHand.cards,
-//         total,
-//       },
-//     });
-//     checkValue();
-//   }
-// }
-
-// doubledown() {
-//   const { bet, player } = this.state;
-//   const betInt = parseInt(bet, 10);
-//   this.hit();
-//   player.money -= betInt;
-//   this.setState({
-//     bet: betInt * 2,
-//     stage: 'dealerPlay',
-//     player,
-//   });
-//   setTimeout(() => { this.dealerHit(); }, 750);
-// }
-
-// hit() {
-//   const {
-//     cards, yourHand, player, bet,
-//   } = this.state;
-//   const { unused } = cards;
-//   const yourCards = yourHand.cards.concat(unused.splice(0, 1));
-//   let total = cardMethods.countHand(yourCards);
-
-//   console.log(`total = ${total}`);
-
-//   this.setState({
-//     cards: {
-//       unused,
-//       used: cards.used,
-//     },
-//     yourHand: {
-//       cards: yourCards,
-//       total,
-//     },
-//   });
-
-//   // check if over 21
-//   if (total[1] > 21) {
-//     total = [total[0], total[0]];
-//     this.setState({
-//       yourHand: {
-//         cards: yourCards,
-//         total,
-//       },
-//     });
-//   }
-//   if (total[0] > 21) {
-//     player.gamesLost += 1;
-//     player.moneyLost += bet;
-//     this.setState({
-//       stage: 'lost',
-//       player,
-//     });
-//   }
-// }
-
-// deal(bet) {
-//   const {
-//     cards, dealersHand, yourHand, player,
-//   } = this.state;
-//   const { unused } = cards;
-//   const used = cards.used.concat(dealersHand.cards, yourHand.cards);
-//   const dealerCards = unused.splice(0, 2);
-//   const yourCards = unused.splice(0, 2);
-//   const dealerTotal = cardMethods.countHand(dealerCards);
-//   const yourTotal = cardMethods.countHand(yourCards);
-//   const betInt = parseInt(bet, 10);
-//   player.gamesPlayed += 1;
-//   player.money -= betInt;
-
-//   if (yourTotal === 'blackjack') {
-//     if (dealerTotal === 'blackjack') {
-//       player.money += betInt;
-//       player.gamesTied += 1;
-//       this.setState({
-//         cards: {
-//           unused,
-//           used,
-//         },
-//         dealersHand: {
-//           cards: dealerCards,
-//           total: dealerTotal,
-//         },
-//         yourHand: {
-//           cards: yourCards,
-//           total: yourTotal,
-//         },
-//         bet: betInt,
-//         stage: 'tie',
-//         player,
-//       });
-//     } else {
-//       player.money += betInt * 2.5;
-//       player.gamesWon += 1;
-//       player.moneyWon += betInt * 1.5;
-//       this.setState({
-//         cards: {
-//           unused,
-//           used,
-//         },
-//         dealersHand: {
-//           cards: dealerCards,
-//           total: dealerTotal,
-//         },
-//         yourHand: {
-//           cards: yourCards,
-//           total: yourTotal,
-//         },
-//         bet: betInt,
-//         stage: 'won',
-//         player,
-//       });
-//     }
-//   } else {
-//     this.setState({
-//       cards: {
-//         unused,
-//         used,
-//       },
-//       dealersHand: {
-//         cards: dealerCards,
-//         total: dealerTotal,
-//       },
-//       yourHand: {
-//         cards: yourCards,
-//         total: yourTotal,
-//       },
-//       bet: betInt,
-//       stage: 'play',
-//       player,
-//     });
-//   }
-// }

@@ -69,16 +69,16 @@ class Table extends React.Component {
 
   // CONTROLS ////////////////////////////////////////////////////////////////
 
-  dealerHit() {
-    const newState = cardMethods.dealerHit(this.state);
-    this.setState(newState);
+  dealerHit(state) {
+    cardMethods.dealerHit(state);
+    this.setState(state);
   }
 
   deal(bet) {
     const { yourHand } = this.state;
     yourHand.bets[0] = bet;
     yourHand.turn = 0;
-    const newState = cardMethods.deal(Object.assign(this.state, { yourHand, stage: 'play' }));
+    const newState = cardMethods.deal(this.state);
     this.setState(newState);
   }
 
@@ -90,10 +90,7 @@ class Table extends React.Component {
   stay() {
     const { yourHand } = this.state;
     yourHand.turn += 1;
-    this.dealerHit(this.state);
-    this.setState({
-      yourHand,
-    });
+    this.dealerHit(Object.assign(this.state));
   }
 
   doubledown() {

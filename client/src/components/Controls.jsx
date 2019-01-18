@@ -45,8 +45,7 @@ class Controls extends React.Component {
 
     if (yourHand.turn < 0) {
       return (
-        <div className="controls-container">
-        </div>
+        <div className="controls-container" />
       );
     }
     for (let i = 0; i < yourHand.totals.length; i += 1) {
@@ -56,13 +55,14 @@ class Controls extends React.Component {
             <div className={`turn${yourHand.turn}`}>
               <div className="controls-container">
                 <div className="hit active" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
-                <div className="stay active" onClick={() => setTimeout(() => { stay(); }, 500)} onKeyPress={() => setTimeout(() => { stay(); }, 500)} role="button" tabIndex={0}>STAY</div>
+                <div className="stay active" onClick={() => stay()} onKeyPress={() => stay()} role="button" tabIndex={0}>STAY</div>
                 <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
                 <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
                 <div className="bet-info">
-                  Bet: {yourHand.bets[i]}
-                  <br />
                   {displayTotal(yourHand.totals[i])}
+                  <br />
+                  $
+                  {yourHand.bets[i]}
                 </div>
               </div>
             </div>
@@ -72,9 +72,10 @@ class Controls extends React.Component {
       return (
         <div className="controls-container">
           <div className="bet-info">
-            Bet: {yourHand.bets[i]}
-            <br />
             {displayTotal(yourHand.totals[i])}
+            <br />
+            $
+            {yourHand.bets[i]}
           </div>
         </div>
       );
