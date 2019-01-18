@@ -167,6 +167,7 @@ cardMethods.hit = (state) => {
   yourHand.totals[yourHand.turn] = cardMethods.countHand(yourHand.cards[yourHand.turn]);
   if (typeof yourHand.totals[yourHand.turn] === 'string') {
     yourHand.turn += 1;
+    return cardMethods.dealerHit(state);
   }
   return state;
 };
@@ -182,7 +183,6 @@ cardMethods.doubledown = (state) => {
 };
 
 cardMethods.dealerHit = (state) => {
-  console.log('state = ', state);
   const { cards, dealersHand } = state;
   dealersHand.total = cardMethods.countHand(dealersHand.cards);
 
