@@ -118,7 +118,7 @@ input { font-size: 105%; }
   background-color: #4CAF50;
   background-image: linear-gradient(to bottom right, #607D8B, #85cc8c);
   border-radius: 15px;
-  border-style: groove;
+  border-style: outset;
 }
 
 .active:hover {

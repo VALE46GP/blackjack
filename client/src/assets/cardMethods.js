@@ -179,7 +179,7 @@ cardMethods.doubledown = (state) => {
 
   const newState = cardMethods.hit(state);
   newState.yourHand.turn += 1;
-  return newState;
+  return cardMethods.dealerHit(newState);
 };
 
 cardMethods.dealerHit = (state) => {
