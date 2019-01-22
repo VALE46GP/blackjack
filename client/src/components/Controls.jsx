@@ -6,9 +6,9 @@ class Controls extends React.Component {
     super();
     this.state = {
       yourHand: {
-        bets: [0],
+        cards: [[]],
         totals: [[]],
-        displays: [],
+        bets: [0],
         turn: 0,
       },
     };
@@ -21,11 +21,26 @@ class Controls extends React.Component {
     });
   }
 
-  // handleBetChange(event) {
-  //   this.setState({
-  //     bets: [event.target.value],
-  //   });
-  // }
+  displayButtons(i) {
+    const { yourHand } = this.state;
+    const buttons = {
+      hit: 'active',
+      stay: 'active',
+      doubledown: 'active',
+      split: 'active',
+    };
+    if (yourHand.cards[i].length !== 2) {
+      buttons.doubledown = 'inactive';
+      buttons.split = 'inactive';
+    }
+    if (yourHand.cards[i][0].slice(0, yourHand.cards[i][0].length - 1) !== yourHand.cards[i][1].slice(0, yourHand.cards[i][1].length - 1)) {
+      buttons.split = 'inactive';
+    }
+    if (yourHand.totals[i].some(v => v === 21)) {
+      buttons.hit = 'inactive';
+    }
+    return buttons;
+  }
 
   render() {
     const {
@@ -50,14 +65,15 @@ class Controls extends React.Component {
     }
     for (let i = 0; i < yourHand.totals.length; i += 1) {
       if (i === yourHand.turn) {
+        const buttons = this.displayButtons(i);
         return (
           <div className="ctrl-you-container">
             <div className={`turn${yourHand.turn}`}>
               <div className="controls-container">
-                <div className="hit active" onClick={() => hit()} onKeyPress={() => hit()} role="button" tabIndex={0}>HIT</div>
-                <div className="stay active" onClick={() => stay()} onKeyPress={() => stay()} role="button" tabIndex={0}>STAY</div>
-                <div className="double active" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>DOUBLE</div>
-                <div className="split inactive" onClick={() => doubledown()} onKeyPress={() => doubledown()} role="button" tabIndex={0}>SPLIT</div>
+                <div className={`hit ${buttons.hit}`} onClick={() => hit(buttons.hit)} onKeyPress={() => hit(buttons.hit)} role="button" tabIndex={0}>HIT</div>
+                <div className={`stay ${buttons.stay}`} onClick={() => stay()} onKeyPress={() => stay()} role="button" tabIndex={0}>STAY</div>
+                <div className={`double ${buttons.doubledown}`} onClick={() => doubledown(buttons.doubledown)} onKeyPress={() => doubledown(buttons.doubledown)} role="button" tabIndex={0}>DOUBLE</div>
+                <div className={`split ${buttons.split}`} onClick={() => doubledown(buttons.split)} onKeyPress={() => doubledown(buttons.split)} role="button" tabIndex={0}>SPLIT</div>
                 <div className="bet-info">
                   {displayTotal(yourHand.totals[i])}
                   <br />

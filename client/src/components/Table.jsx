@@ -82,9 +82,11 @@ class Table extends React.Component {
     this.setState(newState);
   }
 
-  hit() {
-    const newState = cardMethods.hit(this.state);
-    this.setState(newState);
+  hit(displayState) {
+    if (displayState === 'active') {
+      const newState = cardMethods.hit(this.state);
+      this.setState(newState);
+    }
   }
 
   stay() {
@@ -93,9 +95,18 @@ class Table extends React.Component {
     this.dealerHit(Object.assign(this.state));
   }
 
-  doubledown() {
-    const newState = cardMethods.doubledown(this.state);
-    this.setState(newState);
+  doubledown(displayState) {
+    if (displayState === 'active') {
+      const newState = cardMethods.doubledown(this.state);
+      this.setState(newState);
+    }
+  }
+
+  split(displayState) {
+    if (displayState === 'active') {
+      const newState = cardMethods.doubledown(this.state);
+      this.setState(newState);
+    }
   }
 
   // END CONTROLS ////////////////////////////////////////////////////////////
