@@ -182,6 +182,16 @@ cardMethods.doubledown = (state) => {
   return cardMethods.dealerHit(newState);
 };
 
+cardMethods.split = (state) => {
+  const { yourHand, player } = state;
+  player.money -= yourHand.bets[yourHand.turn];
+  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn] * 2, 10);
+
+  const newState = cardMethods.hit(state);
+  newState.yourHand.turn += 1;
+  return cardMethods.dealerHit(newState);
+};
+
 cardMethods.dealerHit = (state) => {
   const { cards, dealersHand } = state;
   dealersHand.total = cardMethods.countHand(dealersHand.cards);

@@ -44,7 +44,7 @@ class Controls extends React.Component {
 
   render() {
     const {
-      hit, stay, doubledown, state,
+      hit, stay, doubledown, split, state,
     } = this.props;
     const { yourHand } = state;
 
@@ -73,7 +73,7 @@ class Controls extends React.Component {
                 <div className={`hit ${buttons.hit}`} onClick={() => hit(buttons.hit)} onKeyPress={() => hit(buttons.hit)} role="button" tabIndex={0}>HIT</div>
                 <div className={`stay ${buttons.stay}`} onClick={() => stay()} onKeyPress={() => stay()} role="button" tabIndex={0}>STAY</div>
                 <div className={`double ${buttons.doubledown}`} onClick={() => doubledown(buttons.doubledown)} onKeyPress={() => doubledown(buttons.doubledown)} role="button" tabIndex={0}>DOUBLE</div>
-                <div className={`split ${buttons.split}`} onClick={() => doubledown(buttons.split)} onKeyPress={() => doubledown(buttons.split)} role="button" tabIndex={0}>SPLIT</div>
+                <div className={`split ${buttons.split}`} onClick={() => split(buttons.split)} onKeyPress={() => split(buttons.split)} role="button" tabIndex={0}>SPLIT</div>
                 <div className="bet-info">
                   {displayTotal(yourHand.totals[i])}
                   <br />

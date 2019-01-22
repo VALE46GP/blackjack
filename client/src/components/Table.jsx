@@ -36,6 +36,7 @@ class Table extends React.Component {
     this.dealerHit = this.dealerHit.bind(this);
     this.stay = this.stay.bind(this);
     this.doubledown = this.doubledown.bind(this);
+    this.split = this.split.bind(this);
   }
 
   componentDidMount() {
@@ -104,7 +105,7 @@ class Table extends React.Component {
 
   split(displayState) {
     if (displayState === 'active') {
-      const newState = cardMethods.doubledown(this.state);
+      const newState = cardMethods.split(this.state);
       this.setState(newState);
     }
   }
@@ -131,7 +132,7 @@ class Table extends React.Component {
                 <Dealer dealersHand={dealersHand} yourHand={yourHand} stage={stage} />
               </div>
               <div className="ctrl">
-                <Controls hit={this.hit} stay={this.stay} doubledown={this.doubledown} state={this.state} />
+                <Controls hit={this.hit} stay={this.stay} doubledown={this.doubledown} split={this.split} state={this.state} />
               </div>
               <div className="your-side">
                 <You yourHand={yourHand} />
