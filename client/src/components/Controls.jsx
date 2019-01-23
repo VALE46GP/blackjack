@@ -29,15 +29,26 @@ class Controls extends React.Component {
       doubledown: 'active',
       split: 'active',
     };
+    if (!yourHand.totals[i]) {
+      return ({
+        hit: 'inactive',
+        stay: 'inactive',
+        doubledown: 'inactive',
+        split: 'inactive',
+      });
+    }
     if (yourHand.cards[i].length !== 2) {
       buttons.doubledown = 'inactive';
       buttons.split = 'inactive';
-    }
-    if (yourHand.cards[i][0].slice(0, yourHand.cards[i][0].length - 1) !== yourHand.cards[i][1].slice(0, yourHand.cards[i][1].length - 1)) {
-      buttons.split = 'inactive';
-    }
-    if (yourHand.totals[i].some(v => v === 21)) {
-      buttons.hit = 'inactive';
+    } else {
+      const firstCard = yourHand.cards[i][0].slice(0, yourHand.cards[i][0].length - 1) || -1; // remove ternary
+      const secondCard = yourHand.cards[i][1].slice(0, yourHand.cards[i][1].length - 1) || -2; // remove ternary
+      if (firstCard !== secondCard) {
+        buttons.split = 'inactive';
+      }
+      if (yourHand.totals[i][1] === 21) {
+        buttons.hit = 'inactive';
+      }
     }
     return buttons;
   }

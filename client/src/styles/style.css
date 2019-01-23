@@ -71,6 +71,14 @@ input { font-size: 105%; }
 
 .turn0 { grid-area: 0; }
 
+.turn1 { grid-area: 1; }
+
+.turn2 { grid-area: 2; }
+
+.turn3 { grid-area: 3; }
+
+.turn4 { grid-area: 4; }
+
 
 .controls-container {
   display: grid;

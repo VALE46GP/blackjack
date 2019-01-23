@@ -93,7 +93,13 @@ class Table extends React.Component {
   stay() {
     const { yourHand } = this.state;
     yourHand.turn += 1;
-    this.dealerHit(Object.assign(this.state));
+    if (yourHand.turn === yourHand.cards.length) {
+      this.dealerHit(Object.assign(this.state));
+    } else {
+      this.setState({
+        yourHand,
+      });
+    }
   }
 
   doubledown(displayState) {
@@ -135,7 +141,7 @@ class Table extends React.Component {
                 <Controls hit={this.hit} stay={this.stay} doubledown={this.doubledown} split={this.split} state={this.state} />
               </div>
               <div className="your-side">
-                <You yourHand={yourHand} />
+                <You yourHand={yourHand} hit={this.hit} />
               </div>
             </div>
           </div>

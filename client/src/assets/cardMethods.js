@@ -12,8 +12,10 @@ cardMethods.shuffle = (cards) => {
 };
 
 cardMethods.generate = (numOfDecks) => {
+  // const suits = ['H', 'C', 'S', 'D'];
+  // const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
   const suits = ['H', 'C', 'S', 'D'];
-  const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+  const values = ['A', 10, 10, 10, 10, 10, 10, 'J', 'Q', 'K'];
   const deck = [];
 
   suits.forEach((suit) => {
@@ -185,11 +187,10 @@ cardMethods.doubledown = (state) => {
 cardMethods.split = (state) => {
   const { yourHand, player } = state;
   player.money -= yourHand.bets[yourHand.turn];
-  yourHand.bets[yourHand.turn] = parseInt(yourHand.bets[yourHand.turn] * 2, 10);
-
-  const newState = cardMethods.hit(state);
-  newState.yourHand.turn += 1;
-  return cardMethods.dealerHit(newState);
+  yourHand.cards.splice(yourHand.turn + 1, 0, [yourHand.cards[yourHand.turn].splice(1, 1)]);
+  yourHand.totals.splice(yourHand.turn + 1, 0, [0, 0]);
+  yourHand.bets.splice(yourHand.turn + 1, 0, yourHand.bets[yourHand.turn]);
+  return state;
 };
 
 cardMethods.dealerHit = (state) => {
