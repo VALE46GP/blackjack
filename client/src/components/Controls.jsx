@@ -37,12 +37,20 @@ class Controls extends React.Component {
         split: 'inactive',
       });
     }
+    if (typeof yourHand.totals[i] === 'string') {
+      return ({
+        hit: 'inactive',
+        stay: 'active',
+        doubledown: 'inactive',
+        split: 'inactive',
+      });
+    }
     if (yourHand.cards[i].length !== 2) {
       buttons.doubledown = 'inactive';
       buttons.split = 'inactive';
     } else {
-      const firstCard = yourHand.cards[i][0].slice(0, yourHand.cards[i][0].length - 1) || -1; // remove ternary
-      const secondCard = yourHand.cards[i][1].slice(0, yourHand.cards[i][1].length - 1) || -2; // remove ternary
+      const firstCard = yourHand.cards[i][0].slice(0, yourHand.cards[i][0].length - 1);
+      const secondCard = yourHand.cards[i][1].slice(0, yourHand.cards[i][1].length - 1);
       if (firstCard !== secondCard) {
         buttons.split = 'inactive';
       }

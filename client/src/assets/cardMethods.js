@@ -188,7 +188,10 @@ cardMethods.split = (state) => {
   const { yourHand, player } = state;
   player.money -= yourHand.bets[yourHand.turn];
   yourHand.cards.splice(yourHand.turn + 1, 0, [yourHand.cards[yourHand.turn].splice(1, 1)]);
-  yourHand.totals.splice(yourHand.turn + 1, 0, [0, 0]);
+
+  const newTotal = cardMethods.countHand(yourHand.cards[yourHand.turn]);
+  yourHand.totals.splice(yourHand.turn + 1, 0, newTotal);
+  yourHand.totals[yourHand.turn] = newTotal;
   yourHand.bets.splice(yourHand.turn + 1, 0, yourHand.bets[yourHand.turn]);
   return state;
 };
