@@ -28,7 +28,6 @@ class Table extends React.Component {
         bets: [0],
         turn: -1,
       },
-      stage: 'init', // stages: init, play, dealerPlay, lost, won, tie
       player: {},
     };
     this.deal = this.deal.bind(this);
