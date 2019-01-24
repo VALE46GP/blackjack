@@ -64,6 +64,9 @@ cardMethods.countHand = (cards) => {
   if (total[0] > 21) {
     return 'BUST';
   }
+  if (total[1] > 21) {
+    total[1] = total[0];
+  }
   return total;
 };
 
@@ -97,7 +100,7 @@ cardMethods.compare = (state) => {
       player.money += bet;
       player.gamesTied += 1;
       yourHand.totals[i] = 'PUSH';
-      yourHand.bets[i] = 'Break even';
+      yourHand.bets[i] = '0 lost';
     } else if (dealer === 'BLACKJACK!') {
       player.gamesLost += 1;
       player.moneyLost += bet;

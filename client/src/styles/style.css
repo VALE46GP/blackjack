@@ -65,19 +65,27 @@ input { font-size: 105%; }
 .ctrl-you-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 140px 140px 140px 140px 140px;
-  grid-template-areas: "0" "1" "2" "3" "4";
+  grid-template-rows: 140px 140px 140px 140px 140px 140px 140px 140px 140px;
+  grid-template-areas: "h0" "h1" "h2" "h3" "h4" "h5" "h6" "h7" "h8";
 }
 
-.turn0 { grid-area: 0; }
+.turn0 { grid-area: h0; }
 
-.turn1 { grid-area: 1; }
+.turn1 { grid-area: h1; }
 
-.turn2 { grid-area: 2; }
+.turn2 { grid-area: h2; }
 
-.turn3 { grid-area: 3; }
+.turn3 { grid-area: h3; }
 
-.turn4 { grid-area: 4; }
+.turn4 { grid-area: h4; }
+
+.turn5 { grid-area: h5; }
+
+.turn6 { grid-area: h6; }
+
+.turn7 { grid-area: h7; }
+
+.turn8 { grid-area: h8; }
 
 
 .controls-container {

@@ -29,20 +29,19 @@ class You extends React.Component {
         <div className="ctrl-you-container" />
       );
     }
-    for (let i = 0; i < yourHand.cards.length; i += 1) {
-      if (yourHand.cards[i].length === 1) {
-        hit();
-      }
-      return (
-        <div className="ctrl-you-container">
-          <div className={`turn${i}`}>
-            <div className="you">
-              {yourHand.cards[i].map((c, e) => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c + e} height="100" />)}
+    return (
+      <div className="ctrl-you-container">
+        {yourHand.cards.map((hand, i) => {
+          return (
+            <div className={`turn${i}`} key={`youhand${i}`}>
+              <div className="you">
+                {hand.map((c, e) => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c + e} height="100" />)}
+              </div>
             </div>
-          </div>
-        </div>
-      );
-    }
+          );
+        })}
+      </div>
+    );
   }
 }
 
