@@ -172,7 +172,9 @@ cardMethods.hit = (state) => {
   yourHand.totals[yourHand.turn] = cardMethods.countHand(yourHand.cards[yourHand.turn]);
   if (typeof yourHand.totals[yourHand.turn] === 'string') {
     yourHand.turn += 1;
-    return cardMethods.dealerHit(state);
+    if (newState.yourHand.turn === newState.yourHand.cards.length) {
+      return cardMethods.dealerHit(state);
+    }
   }
   return state;
 };
@@ -184,13 +186,16 @@ cardMethods.doubledown = (state) => {
 
   const newState = cardMethods.hit(state);
   newState.yourHand.turn += 1;
-  return cardMethods.dealerHit(newState);
+  if (newState.yourHand.turn === newState.yourHand.cards.length) {
+    return cardMethods.dealerHit(newState);
+  }
+  return newState;
 };
 
 cardMethods.split = (state) => {
   const { yourHand, player } = state;
   player.money -= yourHand.bets[yourHand.turn];
-  yourHand.cards.splice(yourHand.turn + 1, 0, [yourHand.cards[yourHand.turn].splice(1, 1)]);
+  yourHand.cards.splice(yourHand.turn + 1, 0, yourHand.cards[yourHand.turn].splice(1, 1));
 
   const newTotal = cardMethods.countHand(yourHand.cards[yourHand.turn]);
   yourHand.totals.splice(yourHand.turn + 1, 0, newTotal);
@@ -200,7 +205,8 @@ cardMethods.split = (state) => {
 };
 
 cardMethods.dealerHit = (state) => {
-  const { cards, dealersHand } = state;
+  const { cards, dealersHand, yourHand } = state;
+  yourHand.turn += 1;
   dealersHand.total = cardMethods.countHand(dealersHand.cards);
 
   while (typeof dealersHand.total !== 'string' && dealersHand.total.every(v => v <= 16)) {

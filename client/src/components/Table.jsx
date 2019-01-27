@@ -1,5 +1,6 @@
 
 import React from 'react';
+import faker from 'faker';
 import Dealer from './Dealer';
 import Bet from './Bet';
 import You from './You';
@@ -7,8 +8,6 @@ import Stats from './Stats';
 import Controls from './Controls';
 import '../styles/style.css';
 import cardMethods from '../assets/cardMethods';
-
-const faker = require('faker');
 
 class Table extends React.Component {
   constructor(props) {
@@ -93,11 +92,14 @@ class Table extends React.Component {
     const { yourHand } = this.state;
     yourHand.turn += 1;
     if (yourHand.turn === yourHand.cards.length) {
-      this.dealerHit(Object.assign(this.state));
+      this.dealerHit(this.state);
     } else {
       this.setState({
         yourHand,
       });
+    }
+    if (yourHand.cards[yourHand.turn].length === 1) {
+      setTimeout(this.hit('active'), 250);
     }
   }
 
@@ -112,6 +114,7 @@ class Table extends React.Component {
     if (displayState === 'active') {
       const newState = cardMethods.split(this.state);
       this.setState(newState);
+      setTimeout(this.hit('active'), 250);
     }
   }
 
@@ -121,6 +124,9 @@ class Table extends React.Component {
     const {
       player, dealersHand, yourHand, stage,
     } = this.state;
+    if (yourHand.turn === yourHand.cards.length) {
+      this.dealerHit(this.state);
+    }
     return (
       <div>
         <div className="title">
