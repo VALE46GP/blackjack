@@ -22,7 +22,7 @@ class Dealer extends React.Component {
       }
       return (
         <div className="dealer">
-          {dealersHand.cards.map(c => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c} height="100" />)}
+          {dealersHand.cards.map((c, e) => <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/deck_standard/${c}.png`} alt={c} key={c + e} height="100" />)}
         </div>
       );
     }
