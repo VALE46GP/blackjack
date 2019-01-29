@@ -109,30 +109,30 @@ cardMethods.compare = (state) => {
     } else if (dealer === 'BUST') {
       if (you === 'BLACKJACK!') {
         player.money += parseInt(bet * 2.5, 10);
-        player.gamesWon += 1;
+        player.handsWon += 1;
         player.moneyWon += parseInt(bet * 1.5, 10);
         yourHand.bets[i] = `${parseInt(bet * 1.5, 10)} won`;
       } else {
         player.money += parseInt(bet * 2, 10);
-        player.gamesWon += 1;
+        player.handsWon += 1;
         player.moneyWon += bet;
         yourHand.totals[i] = 'You win';
         yourHand.bets[i] = `${bet} won`;
       }
     } else if (dealer > you) {
-      player.gamesLost += 1;
+      player.handsLost += 1;
       player.moneyLost += bet;
       yourHand.totals[i] = 'House wins';
       yourHand.bets[i] = `${bet} lost`;
     } else if (dealer < you) {
       player.money += parseInt(bet * 2, 10);
-      player.gamesWon += 1;
+      player.handsWon += 1;
       player.moneyWon += bet;
       yourHand.totals[i] = 'You win';
       yourHand.bets[i] = `${bet}`;
     } else if (you === 'BLACKJACK!') {
       player.money += parseInt(bet * 2.5, 10);
-      player.gamesWon += 1;
+      player.handsWon += 1;
       player.moneyWon += parseInt(bet * 1.5, 10);
       yourHand.bets[i] = `${parseInt(bet * 1.5, 10)} won`;
     }
@@ -158,7 +158,7 @@ cardMethods.deal = (state) => {
 
   yourHand.turn = 0;
   yourHand.bets[0] = parseInt(yourHand.bets[0], 10);
-  player.gamesPlayed += 1;
+  player.handsPlayed += 1;
   player.money -= yourHand.bets[0];
 
   return state;
@@ -201,6 +201,7 @@ cardMethods.split = (state) => {
   yourHand.totals.splice(yourHand.turn + 1, 0, newTotal);
   yourHand.totals[yourHand.turn] = newTotal;
   yourHand.bets.splice(yourHand.turn + 1, 0, yourHand.bets[yourHand.turn]);
+  yourHand.handsPlayed += 1;
   return state;
 };
 

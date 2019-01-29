@@ -47,17 +47,14 @@ class Table extends React.Component {
         id: 0,
         gamertag: 'Marty McFly',
         avatar: faker.image.avatar(),
-        gamesPlayed: 0,
-        gamesWon: 0,
-        gamesLost: 0,
-        gamesTied: 0,
-        blackjacks: 0,
-        doubleDowns: 0,
-        splits: 0,
+        handsPlayed: 0,
+        handsWon: 0,
+        handsLost: 0,
         money: 20,
         moneyWon: 0,
         moneyLost: 0,
-        biggestBet: 0,
+        biggestWin: 0,
+        biggestLoss: 0,
         brave: 0,
         scared: 0,
         lucky: 0,
@@ -160,37 +157,3 @@ class Table extends React.Component {
 }
 
 export default Table;
-
-/*
-
-<div className="main-flex">
-<div>
-  <Controls deal={this.deal} hit={this.hit} stay={this.stay} doubledown={this.doubledown} player={player} stage={stage} />
-</div>
-<div className="main-flex">
-<div className="game-col">
-  <div className="front">
-    <Dealer hand={dealersHand} stage={stage} />
-    <You hand={yourHand} />
-  </div>
-  <span>
-    <img src={`https://s3-us-west-1.amazonaws.com/blackjack-react/biff_tanner_${stage}.png`} alt="place-bet" width="300px" />
-  </span>
-</div>
-</div>
-<div>
-<Stats bet={bet} player={player} />
-</div>
-</div>
-
-// DONT FORGET THIS DELAY AFTER LAST TURN !!
-
- stay() {
-    const { dealerHit } = this;
-    this.setState({
-      stage: 'dealerPlay',
-    });
-    setTimeout(() => { dealerHit(); }, 750);
-  }
-
-*/
