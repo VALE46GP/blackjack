@@ -44,6 +44,7 @@ input { font-size: 105%; }
   width: 200px;
   padding-right: 10px !important;
   padding-left: 10px !important;
+  text-align: right;
 }
 
 

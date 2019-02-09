@@ -5,19 +5,18 @@ mongoose.connect('mongodb://database/blackjack', (err) => {
 });
 
 // each array is in the following format [{record quantity}, {record holding player id}]
-const recordSchema = new mongoose.Schema({
-  mostPlayed: [Number],
-  mostWins: [Number],
-  mostLosses: [Number],
-  biggestWin: [Number],
-  biggestLoss: [Number],
-  bravest: [Number],
-  mostCowardly: [Number],
-  luckiest: [Number],
-  unluckiest: [Number],
-});
+// const recordSchema = new mongoose.Schema({
+//   mostPlayed: [Number],
+//   mostWins: [Number],
+//   mostLosses: [Number],
+//   biggestWin: [Number],
+//   biggestLoss: [Number],
+//   bravest: [Number],
+//   mostCowardly: [Number],
+//   luckiest: [Number],
+//   unluckiest: [Number],
+// });
 
-const playerSchema = new mongoose.Schema({
   id: Number,
   gamertag: String,
   avatar: String,
