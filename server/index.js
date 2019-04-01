@@ -13,14 +13,14 @@ server.listen(80);
 
 app.use('/', express.static('public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 io.on('connection', (socket) => {
   console.log(`A client with ID ${socket.id} is connected`);
 
   socket.on('request-color-change', (data) => {
-    io.emit('trigger-color-change', {color: data.color});
+    io.emit('trigger-color-change', { color: data.color });
   });
 });
 

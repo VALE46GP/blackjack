@@ -1,6 +1,11 @@
 # blackjack
 
-> Project description
+> Blackjack Training Game
+
+## Screenshot
+
+![Screenshot 1](https://s3-us-west-1.amazonaws.com/blackjack-react/Blackjack+Screenshot+1.png)
+
 ## Table of Contents
 
 1. [Usage](#Usage)
